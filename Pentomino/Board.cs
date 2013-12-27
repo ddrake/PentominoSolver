@@ -20,7 +20,7 @@ namespace Pentomino
             Array.Clear(bitmap, 0, bitmap.Length);
         }
 
-        public Placement[] PossiblePlacementsFor(IPiece piece)
+        public Placement[] PossiblePlacementsFor(Piece piece)
         {
             List<Placement> placements = new List<Placement>(50);
             for (int x = 0; x < width; ++x)

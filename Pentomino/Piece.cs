@@ -4,20 +4,27 @@ using System.Collections.Generic;
 
 namespace Pentomino
 {
-    public interface IPiece
+    public abstract class Piece
     {
-        string Name { get; }
+        protected string name;
+        protected Shape[] shapes;
 
-        Shape[] Shapes { get; }
-    }
-
-    public class Moose : IPiece
-    {
-        private Shape[] shapes;
         public Shape[] Shapes { get { return shapes; } }
 
-        private string name;
-        public string Name { get { return name; } } 
+        public string Name { get { return name; } }
+        
+        public override bool Equals(object obj)
+        {
+            return this.name == ((Piece)obj).Name;
+        }
+        public override string ToString()
+        {
+            return this.name;
+        }
+    }
+
+    public class Moose : Piece
+    {
       
         public Moose()
         {
@@ -49,30 +56,22 @@ namespace Pentomino
             bitmap = new bool[,] { { false, true }, { false, true }, { true, true }, { true, false } };
             shapes[7] = new Shape(this, "Head up, feet right", bitmap);
         }
-        public override bool Equals(object obj)
-        {
-            return this.name == ((Moose)obj).Name;
-        }
-        public override string ToString()
-        {
-            return this.name;
-        }
     }
 	
     public class Shape
     {
-        public Shape(IPiece piece, string orientation, bool[,] bitmap)
+        public Shape(Piece piece, string orientation, bool[,] bitmap)
         {
             this.piece = piece;
             this.orientation = orientation;
             this.bitmap = bitmap;
         }
 
-        private IPiece piece;
+        private Piece piece;
         private string orientation;
         private bool[,] bitmap;
 
-        public IPiece Piece { get { return piece; } }
+        public Piece Piece { get { return piece; } }
         public string Orientation { get { return orientation; } }
         public bool[,] Bitmap { get { return bitmap; } }
         public override bool Equals(object obj)

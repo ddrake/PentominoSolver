@@ -8,9 +8,9 @@ namespace Pentomino
 {
     public class Game
     {
-        public IPiece[] FreePieces()
+        public Piece[] FreePieces()
         {
-            return new IPiece[] { };
+            return new Piece[] { };
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pentomino", "Pentomino\Pentomino.csproj", "{25F0D2DA-9B64-44D8-B55C-C2F778331FF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PentominoTests", "PentominoTests\PentominoTests.csproj", "{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25F0D2DA-9B64-44D8-B55C-C2F778331FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F0D2DA-9B64-44D8-B55C-C2F778331FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F0D2DA-9B64-44D8-B55C-C2F778331FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F0D2DA-9B64-44D8-B55C-C2F778331FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -11,13 +11,34 @@ namespace Pentomino
         private int width;
         private int height;
         private bool[,] bitmap;
+        private List<Placement> placements;
 
         public Board(int width, int height)
         {
             this.width = width;
             this.height = height;
             this.bitmap = new bool[width, height];
+            Clear();
+        }
+
+        public void Clear()
+        {
             Array.Clear(bitmap, 0, bitmap.Length);
+            placements = new List<Placement>(12);
+        }
+
+        public List<Placement> Placements { get { return placements; } }
+
+        public void Add(Placement placement)
+        {
+            placements.Add(placement);
+            this.bitmap = placement.UpdateBitmap(this.bitmap, true);
+        }
+
+        public void Remove(Placement placement)
+        {
+            placements.Remove(placement);
+            this.bitmap = placement.UpdateBitmap(this.bitmap, false);
         }
 
         public Placement[] PossiblePlacementsFor(Piece piece)

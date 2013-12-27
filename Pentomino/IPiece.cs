@@ -6,24 +6,18 @@ namespace Pentomino
 {
     public interface IPiece
     {
-        string Name();
+        string Name { get; }
 
-        Shape[] Shapes();
+        Shape[] Shapes { get; }
     }
 
     public class Moose : IPiece
     {
         private Shape[] shapes;
-        public Shape[] Shapes()
-        {
-            return shapes;
-        }
+        public Shape[] Shapes { get { return shapes; } }
 
         private string name;
-        public string Name() 
-        { 
-            return name; 
-        } 
+        public string Name { get { return name; } } 
       
         public Moose()
         {
@@ -57,7 +51,7 @@ namespace Pentomino
         }
         public override bool Equals(object obj)
         {
-            return this.name == ((Moose)obj).Name();
+            return this.name == ((Moose)obj).Name;
         }
         public override string ToString()
         {

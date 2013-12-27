@@ -29,7 +29,7 @@ namespace Pentomino
                 {
                     Location location = new Location(x, y);
 
-                    foreach (Shape shape in piece.Shapes())
+                    foreach (Shape shape in piece.Shapes)
                     {
                         if (CanFit(shape, location))
                         {

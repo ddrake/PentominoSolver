@@ -41,7 +41,6 @@ namespace Pentomino
             pieces.Add(shape.Piece);
         }
     }
-
     public class Shape
     {
         public Shape(Piece piece, string orientation, bool[,] bitmap)
@@ -168,6 +167,21 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[6].Bitmap);
             shapes[7] = new Shape(this, "Head down, feet right", bitmap);
         }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight, 
+            UpsideDownFacingLeft,
+            HeadUpFeetRight,
+            HeadUpFeetLeft,
+            HeadDownFeetLeft,
+            HeadDownFeetRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Bird : Piece
@@ -201,6 +215,21 @@ namespace Pentomino
 
             bitmap = Shape.FlipBitmapHorizontally(shapes[6].Bitmap);
             shapes[7] = new Shape(this, "Head down, feet right", bitmap);
+        }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight,
+            UpsideDownFacingLeft,
+            HeadUpFeetRight,
+            HeadUpFeetLeft,
+            HeadDownFeetLeft,
+            HeadDownFeetRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
         }
     }
 
@@ -236,6 +265,21 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[6].Bitmap);
             shapes[7] = new Shape(this, "Head down, belly right", bitmap);
         }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight,
+            UpsideDownFacingLeft,
+            HeadUpBellyRight,
+            HeadUpBellyLeft,
+            HeadDownBellyLeft,
+            HeadDownBellyRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Rabbit : Piece
@@ -269,6 +313,21 @@ namespace Pentomino
 
             bitmap = Shape.FlipBitmapHorizontally(shapes[6].Bitmap);
             shapes[7] = new Shape(this, "Head down, belly right", bitmap);
+        }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight,
+            UpsideDownFacingLeft,
+            HeadUpBellyRight,
+            HeadUpBellyLeft,
+            HeadDownBellyLeft,
+            HeadDownBellyRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
         }
     }
 
@@ -304,6 +363,21 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[6].Bitmap);
             shapes[7] = new Shape(this, "Head down, fin right", bitmap);
         }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight,
+            UpsideDownFacingLeft,
+            HeadUpFinRight,
+            HeadUpFinLeft,
+            HeadDownFinLeft,
+            HeadDownFinRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Whale : Piece
@@ -325,6 +399,17 @@ namespace Pentomino
 
             bitmap = Shape.FlipBitmapHorizontally(shapes[2].Bitmap);
             shapes[3] = new Shape(this, "Head down, tail left", bitmap);
+        }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            HeadDownTailLeft,
+            HeadDownTailRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
         }
     }
 
@@ -348,6 +433,17 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[2].Bitmap);
             shapes[3] = new Shape(this, "Head right", bitmap);
         }
+        public enum Orientation
+        {
+            Upright,
+            UpsideDown,
+            HeadLeft,
+            HeadRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Crab : Piece
@@ -370,6 +466,17 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[2].Bitmap);
             shapes[3] = new Shape(this, "Claws right", bitmap);
         }
+        public enum Orientation
+        {
+            ClawsUp,
+            ClawsDown,
+            ClawsLeft,
+            ClawsRight
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Squirrel : Piece
@@ -380,7 +487,7 @@ namespace Pentomino
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
-            bitmap = new bool[,] { { true, true }, { true, false }, { true, true } };
+            bitmap = new bool[,] { { true, false, false }, { true, false, false }, { true, true, true } };
             shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(shapes[0].Bitmap);
@@ -392,6 +499,17 @@ namespace Pentomino
             bitmap = Shape.FlipBitmapHorizontally(shapes[2].Bitmap);
             shapes[3] = new Shape(this, "Upside-down facing left", bitmap);
         }
+        public enum Orientation
+        {
+            FacingLeft,
+            FacingRight,
+            UpsideDownFacingRight,
+            UpsideDownFacingLeft
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Bat : Piece
@@ -402,7 +520,7 @@ namespace Pentomino
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
-            bitmap = new bool[,] { { true, true }, { true, false }, { true, true } };
+            bitmap = new bool[,] { { false, false, true }, { false, true, true }, { true, true, false } };
             shapes[0] = new Shape(this, "Head top right", bitmap);
 
             bitmap = Shape.RotateBitmapClockwise(shapes[0].Bitmap);
@@ -413,6 +531,17 @@ namespace Pentomino
 
             bitmap = Shape.RotateBitmapClockwise(shapes[2].Bitmap);
             shapes[3] = new Shape(this, "Head top left", bitmap);
+        }
+        public enum Orientation
+        {
+            HeadTopRight,
+            HeadBottomRight,
+            HeadBottomLeft,
+            HeadTopLeft
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
         }
     }
 
@@ -431,6 +560,15 @@ namespace Pentomino
             shapes[1] = new Shape(this, "vertical", bitmap);
 
         }
+        public enum Orientation
+        {
+            Horizontal,
+            Vertical
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
     public class Owl : Piece
@@ -438,16 +576,23 @@ namespace Pentomino
         public Owl()
         {
             this.name = "Owl";
-            this.shapes = new Shape[2];
+            this.shapes = new Shape[1];
             bool[,] bitmap;
 
             bitmap = new bool[,] { { false, true, false }, { true, true, true }, { false, true, false }, };
             shapes[0] = new Shape(this, "", bitmap);
         }
+        public enum Orientation
+        {
+            Any
+        }
+        public Shape GetShape(Orientation orientation)
+        {
+            return shapes[(int)orientation];
+        }
     }
 
-
-
+    
     public struct Location
     {
 

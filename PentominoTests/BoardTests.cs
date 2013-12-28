@@ -30,16 +30,24 @@ public class GameTests
     }
 
     [Fact]
-    public void GameShouldFindSolutionForSolvablePuzzle()
+    public void GameShouldFindSolutionFor5x3Puzzle()
     {
         Board board = new Board(5, 3);
         Game game = new Game(board);
-        Piece rabbit = new Rabbit();
-        Piece fish = new Fish();
-        Piece ram = new Ram();
-        game.AddPiece(rabbit);
-        game.AddPiece(fish);
-        game.AddPiece(ram);
+        game.AddPiece(new Rabbit());
+        game.AddPiece(new Fish());
+        game.AddPiece(new Ram());
+        game.Solve();
+        Assert.Equal(4, game.Solutions.Count);
+    }
+    [Fact]
+    public void GameShouldFindSolutionFor5x3Puzzle2()
+    {
+        Board board = new Board(5, 3);
+        Game game = new Game(board);
+        game.AddPiece(new Snail());
+        game.AddPiece(new Moose());
+        game.AddPiece(new Crab());
         game.Solve();
         Assert.Equal(4, game.Solutions.Count);
     }
@@ -130,7 +138,16 @@ public class PlacementTests
         Moose moose = new Moose();
         Placement placement = new Placement(moose.Shapes[0], new Location(0, 0));
         bool[,] expected = new bool[,] { { false, true, false }, { true, true, false }, { true, false, false }, { true, false, false } };
-        Assert.Equal(expected, placement.UpdateBitmap(boardMap, true) );
+        Assert.Equal(expected, placement.UpdateBitmap(boardMap, true));
+    }
+}
+
+public class ShapeTests
+{
+    [Fact]
+    public void ShapeCanBeConstructedFromAnEnumeration()
+    {
+        Shape mooseUpsideDown = new Moose().GetShape(Moose.Orientation.FacingLeft);
     }
 }
 

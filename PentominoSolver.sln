@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pentomino", "Pentomino\Pent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PentominoTests", "PentominoTests\PentominoTests.csproj", "{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PentominoSolver", "PentominoSolver\PentominoSolver.csproj", "{D758039E-2609-453D-B40A-6B7A6BCED042}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68BCFF8D-A97B-42E9-9BCA-0E01E1F4BD05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D758039E-2609-453D-B40A-6B7A6BCED042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D758039E-2609-453D-B40A-6B7A6BCED042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D758039E-2609-453D-B40A-6B7A6BCED042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D758039E-2609-453D-B40A-6B7A6BCED042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

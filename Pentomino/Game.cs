@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Pentomino
 {
     public class Game
@@ -60,9 +61,24 @@ namespace Pentomino
                 if (HasSolution(placement))
                 {
                     solutions.Add(new List<Placement>(board.Placements));
+                    WriteSolution(board.Placements);
+                }
+                else
+                {
+                    Console.Write(String.Format("No solution for {0}", placement));
                 }
                 ResetPieces();
             }
+        }
+
+        public void WriteSolution(List<Placement> placements)
+        {
+            Console.WriteLine("Solution");
+            foreach (Placement placement in placements)
+            {
+                Console.WriteLine(placement.ToString());
+            }
+            Console.WriteLine();
         }
 
         public bool HasSolution(Placement placement)

@@ -124,6 +124,7 @@ public class BoardTests
         Assert.Equal(0, board.Placements.Count);
     }
 
+      
 
 }
 

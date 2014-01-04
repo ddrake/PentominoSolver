@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 
 namespace Pentomino
@@ -13,6 +14,69 @@ namespace Pentomino
         {
             this.shape = shape;
             this.location = location;
+        }
+        public Placement(Enum orientation, int x, int y)
+        {
+            this.shape = GetShape(orientation);
+            this.location = new Location(x,y);
+        }
+
+        private Shape GetShape(Enum orientation)
+        {
+            Type type = orientation.GetType();
+
+            if (type == typeof(Moose.Orientation))
+            {
+                return new Moose().GetShape((Moose.Orientation)orientation);
+            }
+            else if (type == typeof(Squirrel.Orientation))
+            {
+                return new Squirrel().GetShape((Squirrel.Orientation)orientation);
+            }
+            else if (type == typeof(Bat.Orientation))
+            {
+                return new Bat().GetShape((Bat.Orientation)orientation);
+            }
+            else if (type == typeof(Rabbit.Orientation))
+            {
+                return new Rabbit().GetShape((Rabbit.Orientation)orientation);
+            }
+            else if (type == typeof(Worm.Orientation))
+            {
+                return new Worm().GetShape((Worm.Orientation)orientation);
+            }
+            else if (type == typeof(Whale.Orientation))
+            {
+                return new Whale().GetShape((Whale.Orientation)orientation);
+            }
+            else if (type == typeof(Fish.Orientation))
+            {
+                return new Fish().GetShape((Fish.Orientation)orientation);
+            }
+            else if (type == typeof(Bird.Orientation))
+            {
+                return new Bird().GetShape((Bird.Orientation)orientation);
+            }
+            else if (type == typeof(Crab.Orientation))
+            {
+                return new Crab().GetShape((Crab.Orientation)orientation);
+            }
+            else if (type == typeof(Snail.Orientation))
+            {
+                return new Snail().GetShape((Snail.Orientation)orientation);
+            }
+            else if (type == typeof(Owl.Orientation))
+            {
+                return new Owl().GetShape((Owl.Orientation)orientation);
+            }
+            else if (type == typeof(Ram.Orientation))
+            {
+                return new Ram().GetShape((Ram.Orientation)orientation);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid orientation");
+            }
         }
         public override string ToString()
         {
@@ -120,10 +184,13 @@ namespace Pentomino
     {
         protected string name;
         protected Shape[] shapes;
+        protected int id;
 
         public Shape[] Shapes { get { return shapes; } }
 
         public string Name { get { return name; } }
+
+        public int Id { get { return id; } }
         
         public override bool Equals(object obj)
         {
@@ -140,6 +207,7 @@ namespace Pentomino
         public Moose()
         {
             this.name = "Moose";
+            this.id = 1;
             this.shapes = new Shape[8];
             bool[,] bitmap;
 
@@ -189,6 +257,7 @@ namespace Pentomino
         public Bird()
         {
             this.name = "Bird";
+            this.id = 2;
             this.shapes = new Shape[8];
             bool[,] bitmap;
 
@@ -238,6 +307,7 @@ namespace Pentomino
         public Snail()
         {
             this.name = "Snail";
+            this.id = 3;
             this.shapes = new Shape[8];
             bool[,] bitmap;
 
@@ -287,6 +357,7 @@ namespace Pentomino
         public Rabbit()
         {
             this.name = "Rabbit";
+            this.id = 4;
             this.shapes = new Shape[8];
             bool[,] bitmap;
 
@@ -336,6 +407,7 @@ namespace Pentomino
         public Fish()
         {
             this.name = "Fish";
+            this.id = 5;
             this.shapes = new Shape[8];
             bool[,] bitmap;
 
@@ -385,6 +457,7 @@ namespace Pentomino
         public Whale()
         {
             this.name = "Whale";
+            this.id = 6;
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
@@ -418,6 +491,7 @@ namespace Pentomino
         public Ram()
         {
             this.name = "Ram";
+            this.id = 7;
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
@@ -451,6 +525,7 @@ namespace Pentomino
         public Crab()
         {
             this.name = "Crab";
+            this.id = 8;
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
@@ -484,6 +559,7 @@ namespace Pentomino
         public Squirrel()
         {
             this.name = "Squirrel";
+            this.id = 9;
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
@@ -517,6 +593,7 @@ namespace Pentomino
         public Bat()
         {
             this.name = "Bat";
+            this.id = 10;
             this.shapes = new Shape[4];
             bool[,] bitmap;
 
@@ -550,6 +627,7 @@ namespace Pentomino
         public Worm()
         {
             this.name = "Worm";
+            this.id = 11;
             this.shapes = new Shape[2];
             bool[,] bitmap;
 
@@ -576,6 +654,7 @@ namespace Pentomino
         public Owl()
         {
             this.name = "Owl";
+            this.id = 12;
             this.shapes = new Shape[1];
             bool[,] bitmap;
 

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Pentomino
 {
     public class Game
     {
-        private List<Piece> originalPieces;
+        private List<Piece> originalFreePieces;
+        private List<Placement> presetPlacements;
         private List<Piece> freePieces;
         private Board board;
         private List<List<Placement>> solutions;
@@ -21,7 +20,8 @@ namespace Pentomino
         public Game(Board board)
         {
             this.board = board;
-            this.originalPieces = new List<Piece>(12);
+            this.originalFreePieces = new List<Piece>(12);
+            this.presetPlacements = new List<Placement>(4);
             this.freePieces = new List<Piece>(12);
             ClearSolutions();
         }
@@ -34,7 +34,12 @@ namespace Pentomino
         public void AddPiece(Piece piece)
         {
             this.freePieces.Add(piece);
-            this.originalPieces.Add(piece);
+            this.originalFreePieces.Add(piece);
+        }
+
+        public void AddPresetPlacement(Placement placement)
+        {
+            this.presetPlacements.Add(placement);
         }
 
         public void PlayPiece(Placement placement)
@@ -53,21 +58,51 @@ namespace Pentomino
         {
             ClearSolutions();
             if (freePieces.Count == 0) return;
+            ResetPieces(); 
             Piece piece = freePieces[0];
             Placement[] placements = board.PossiblePlacementsFor(piece);
             if (placements.Length == 0) return;
             foreach (Placement placement in placements)
             {
-                if (HasSolution(placement))
+                if (HasSolution(placement,1))
                 {
                     solutions.Add(new List<Placement>(board.Placements));
                     WriteSolution(board.Placements);
                 }
                 else
                 {
-                    Console.Write(String.Format("No solution for {0}", placement));
+                    Console.WriteLine(String.Format("No solution for {0}", placement));
                 }
                 ResetPieces();
+            }
+        }
+
+        public bool HasSolution(Placement placement, int level)
+        {
+            // Play the piece, removing it from free pieces.
+            if (level <= 1) Console.WriteLine(String.Format("{0} {1}", level, placement));
+            PlayPiece(placement);
+            if (freePieces.Count == 0) return true;
+            Piece piece = freePieces[0];
+            Placement[] placements = board.PossiblePlacementsFor(piece);
+            foreach (Placement nextPlacement in placements)
+            {
+                if (HasSolution(nextPlacement, level+1)) return true;
+            }
+            // Un-play the piece, adding it back to free pieces.
+            UnPlayPiece(placement);
+            return false;
+        }
+
+
+        public void ResetPieces()
+        {
+            board.Clear();
+            freePieces = new List<Piece>(12);
+            freePieces.AddRange(originalFreePieces);
+            foreach( Placement placement in presetPlacements)
+            {
+                PlayPiece(placement);
             }
         }
 
@@ -79,30 +114,6 @@ namespace Pentomino
                 Console.WriteLine(placement.ToString());
             }
             Console.WriteLine();
-        }
-
-        public bool HasSolution(Placement placement)
-        {
-            // Play the piece, removing it from free pieces.
-            PlayPiece(placement);
-            if (freePieces.Count == 0) return true;
-            Piece piece = freePieces[0];
-            Placement[] placements = board.PossiblePlacementsFor(piece);
-            foreach (Placement nextPlacement in placements)
-            {
-                if (HasSolution(nextPlacement)) return true;
-            }
-            // Un-play the piece, adding it back to free pieces.
-            UnPlayPiece(placement);
-            return false;
-        }
-
-
-        public void ResetPieces()
-        {
-            freePieces = new List<Piece>(12);
-            freePieces.AddRange(originalPieces);
-            board.Clear();
         }
     }
 }

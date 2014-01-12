@@ -674,7 +674,6 @@ namespace Pentomino
     
     public struct Location
     {
-
         public int x, y;
         public Location(int x, int y)
         {

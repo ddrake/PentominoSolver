@@ -83,11 +83,17 @@ namespace Pentomino
             if (level <= 1) Console.WriteLine(String.Format("{0} {1}", level, placement));
             PlayPiece(placement);
             if (freePieces.Count == 0) return true;
+            if (board.InvalidRegions()) {
+                UnPlayPiece(placement);
+                return false;
+            }
             Piece piece = freePieces[0];
             Placement[] placements = board.PossiblePlacementsFor(piece);
-            foreach (Placement nextPlacement in placements)
+
+            // This is wrong! If there are multiple solutions within placements, we only get the first one!
+            foreach(var nextPlacement in placements)
             {
-                if (HasSolution(nextPlacement, level+1)) return true;
+                if (HasSolution(nextPlacement, level + 1)) return true;
             }
             // Un-play the piece, adding it back to free pieces.
             UnPlayPiece(placement);

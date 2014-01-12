@@ -43,6 +43,23 @@ public class GameTests
     [Fact]
     public void GameShouldFindSolutionFor5x3Puzzle2()
     {
+        //ok
+        // moose facing right at 0,0
+        // crab claws left at 3,0
+        // snail upside down facing right at 0,1
+
+        // ok
+        // snail facing right at 0,0
+        // crab claws left at 3,0
+        // moose upside down facing right at 0,1
+
+        // crab claws right at 0,0
+        // moose facing left at 1,0
+        // snail upside down facing left at 2,1
+
+        // crab claws right at 0,0
+        // snail facing left at 2,0
+        // moose upside down facing left at 1,1
         Board board = new Board(5, 3);
         Game game = new Game(board);
         game.AddPiece(new Snail());

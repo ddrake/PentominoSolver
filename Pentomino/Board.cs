@@ -106,6 +106,18 @@ namespace Pentomino
             foreach (bool x in this.bitmap) sb.Append(x ? "1" : "0");
             return Convert.ToInt64(sb.ToString(),2).ToString("X");
         }
+
+        public bool InvalidRegions()
+        {
+            var finder = new OpenRegionFinder(bitmap);
+            List<List<Location>> regions = finder.FindRegions();
+            foreach(var region in regions)
+            {
+                if (region.Count % 5 != 0) return true;
+            }
+            return false;
+        }
+
     }
 
 

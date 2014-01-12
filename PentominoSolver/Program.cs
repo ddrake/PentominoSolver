@@ -28,12 +28,12 @@ namespace PentominoSolver
             game.AddPiece(new Rabbit());
 
             game.AddPresetPlacement(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
-            game.AddPresetPlacement(new Placement(Fish.Orientation.UpsideDownFacingLeft, 1, 0));
-            game.AddPresetPlacement(new Placement(Bird.Orientation.UpsideDownFacingRight, 3, 0));
-            game.AddPresetPlacement(new Placement(Worm.Orientation.Horizontal, 5,5));
+//            game.AddPresetPlacement(new Placement(Moose.Orientation.UpsideDownFacingLeft, 1, 0));
+//            game.AddPresetPlacement(new Placement(Bird.Orientation.UpsideDownFacingRight, 3, 0));
+//            game.AddPresetPlacement(new Placement(Worm.Orientation.Horizontal, 1,0));
 
             game.Solve();
-            Console.WriteLine("Processing Complete");
+            Console.WriteLine(String.Format("Processing Complete.  Found {0} solutions.", game.Solutions.Count()));
             foreach (List<Placement> placements in game.Solutions)
             {
                 game.WriteSolution(placements);

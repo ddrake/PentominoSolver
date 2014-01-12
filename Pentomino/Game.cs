@@ -21,8 +21,8 @@ namespace Pentomino
         {
             this.board = board;
             this.originalFreePieces = new List<Piece>(12);
-            this.presetPlacements = new List<Placement>(4);
             this.freePieces = new List<Piece>(12);
+            this.presetPlacements = new List<Placement>(4);
             ClearSolutions();
         }
 
@@ -54,63 +54,92 @@ namespace Pentomino
             placement.AddPieceToList(ref freePieces);
         }
 
-        public void Solve()
-        {
-            ClearSolutions();
-            if (freePieces.Count == 0) return;
-            ResetPieces(); 
-            Piece piece = freePieces[0];
-            Placement[] placements = board.PossiblePlacementsFor(piece);
-            if (placements.Length == 0) return;
-            foreach (Placement placement in placements)
-            {
-                if (HasSolution(placement,1))
-                {
-                    solutions.Add(new List<Placement>(board.Placements));
-                    WriteSolution(board.Placements);
-                }
-                else
-                {
-                    Console.WriteLine(String.Format("No solution for {0}", placement));
-                }
-                ResetPieces();
-            }
-        }
-
-        public bool HasSolution(Placement placement, int level)
-        {
-            // Play the piece, removing it from free pieces.
-            if (level <= 1) Console.WriteLine(String.Format("{0} {1}", level, placement));
-            PlayPiece(placement);
-            if (freePieces.Count == 0) return true;
-            if (board.InvalidRegions()) {
-                UnPlayPiece(placement);
-                return false;
-            }
-            Piece piece = freePieces[0];
-            Placement[] placements = board.PossiblePlacementsFor(piece);
-
-            // This is wrong! If there are multiple solutions within placements, we only get the first one!
-            foreach(var nextPlacement in placements)
-            {
-                if (HasSolution(nextPlacement, level + 1)) return true;
-            }
-            // Un-play the piece, adding it back to free pieces.
-            UnPlayPiece(placement);
-            return false;
-        }
-
-
         public void ResetPieces()
         {
             board.Clear();
             freePieces = new List<Piece>(12);
             freePieces.AddRange(originalFreePieces);
-            foreach( Placement placement in presetPlacements)
+            foreach (Placement placement in presetPlacements)
             {
                 PlayPiece(placement);
             }
         }
+        
+        public void Solve()
+        {
+            ClearSolutions();
+            ResetPieces(); 
+            SolveRecursively(1);
+        }
+
+        public void SolveRecursively(int level)
+        {
+            Piece piece = freePieces.First();
+            Placement[] placements = board.PossiblePlacementsFor(piece);
+            foreach (Placement placement in placements)
+            {
+                if (level == 1) Console.WriteLine(String.Format("{0}", placement)); 
+                PlayPiece(placement);
+                if (freePieces.Count == 0)
+                {
+                    solutions.Add(board.Placements.ToList<Placement>());
+                    Console.WriteLine(String.Format("Found solution #{0}!", solutions.Count));
+                }
+                else 
+                {
+                    if (!board.InvalidRegions()) SolveRecursively(level + 1);
+                }
+                UnPlayPiece(placement);
+            }
+        }
+
+        //public void SolveOld()
+        //{
+        //    ClearSolutions();
+        //    if (freePieces.Count == 0) return;
+        //    ResetPieces(); 
+        //    Piece piece = freePieces[0];
+        //    Placement[] placements = board.PossiblePlacementsFor(piece);
+        //    if (placements.Length == 0) return;
+        //    foreach (Placement placement in placements)
+        //    {
+        //        if (HasSolution(placement,1))
+        //        {
+        //            solutions.Add(new List<Placement>(board.Placements));
+        //            WriteSolution(board.Placements);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine(String.Format("No solution for {0}", placement));
+        //        }
+        //        ResetPieces();
+        //    }
+        //}
+
+        //public bool HasSolution(Placement placement, int level)
+        //{
+        //    // Play the piece, removing it from free pieces.
+        //    if (level <= 1) Console.WriteLine(String.Format("{0} {1}", level, placement));
+        //    PlayPiece(placement);
+        //    if (freePieces.Count == 0) return true;
+        //    if (board.InvalidRegions()) {
+        //        UnPlayPiece(placement);
+        //        return false;
+        //    }
+        //    Piece piece = freePieces[0];
+        //    Placement[] placements = board.PossiblePlacementsFor(piece);
+
+        //    // This is wrong! If there are multiple solutions within placements, we only get the first one!
+        //    foreach(var nextPlacement in placements)
+        //    {
+        //        if (HasSolution(nextPlacement, level + 1)) return true;
+        //    }
+        //    // Un-play the piece, adding it back to free pieces.
+        //    UnPlayPiece(placement);
+        //    return false;
+        //}
+
+
 
         public void WriteSolution(List<Placement> placements)
         {

@@ -7,62 +7,66 @@ namespace Pentomino
 {
     public class Game
     {
-        private List<Piece> originalFreePieces;
-        private List<Placement> presetPlacements;
-        private List<Piece> freePieces;
-        private Board board;
-        private List<List<Placement>> solutions;
-
-        public List<Piece> FreePieces { get { return freePieces; } }
-        public Board Board { get { return board; } }
-        public List<List<Placement>> Solutions { get { return solutions; } }
+        private const int AllPieces = 12;
+        public Board Board { get; private set; }
+        private List<Piece> OriginalFreePieces { get; set; }
+        private List<Placement> PresetPlacements { get; set; }
+        public List<Piece> FreePieces { get; private set; }
+        public List<List<Placement>> Solutions { get; private set; }
 
         public Game(Board board)
         {
-            this.board = board;
-            this.originalFreePieces = new List<Piece>(12);
-            this.freePieces = new List<Piece>(12);
-            this.presetPlacements = new List<Placement>(4);
+            Board = board;
+            OriginalFreePieces = new List<Piece>();
+            PresetPlacements = new List<Placement>();
+            ResetFreePieces();
             ClearSolutions();
         }
 
         private void ClearSolutions()
         {
-            this.solutions = new List<List<Placement>>(10);
+            this.Solutions = new List<List<Placement>>(100);
+        }
+
+        private void ResetFreePieces()
+        {
+            FreePieces = new List<Piece>(OriginalFreePieces);
         }
 
         public void AddPiece(Piece piece)
         {
-            this.freePieces.Add(piece);
-            this.originalFreePieces.Add(piece);
+            FreePieces.Add(piece);
+            OriginalFreePieces.Add(piece);
         }
 
         public void AddPresetPlacement(Placement placement)
         {
-            this.presetPlacements.Add(placement);
+            this.PresetPlacements.Add(placement);
         }
 
         public void PlayPiece(Placement placement)
         {
-            this.board.Add(placement);
-            placement.RemovePieceFromList(ref freePieces);
+            Board.Add(placement);
+            placement.RemovePieceFromList(FreePieces);
         }
 
         public void UnPlayPiece(Placement placement)
         {
-            this.board.Remove(placement);
-            placement.AddPieceToList(ref freePieces);
+            Board.Remove(placement);
+            placement.AddPieceToList(FreePieces);
         }
+
 
         public void ResetPieces()
         {
-            board.Clear();
-            freePieces = new List<Piece>(12);
-            freePieces.AddRange(originalFreePieces);
-            foreach (Placement placement in presetPlacements)
-            {
-                PlayPiece(placement);
-            }
+            Board.Clear();
+            FreePieces = new List<Piece>(OriginalFreePieces);
+            ReplayPresetPlacements();
+        }
+
+        private void ReplayPresetPlacements()
+        {
+            foreach (Placement placement in PresetPlacements) PlayPiece(placement);
         }
         
         public void Solve()
@@ -74,81 +78,40 @@ namespace Pentomino
 
         public void SolveRecursively(int level)
         {
-            Piece piece = freePieces.First();
-            Placement[] placements = board.PossiblePlacementsFor(piece);
-            foreach (Placement placement in placements)
+            foreach (Placement placement in Board.PossiblePlacementsFor(FreePieces.First()))
             {
-                if (level == 1) Console.WriteLine(String.Format("{0}", placement)); 
+                ShowProgress(level, placement);
                 PlayPiece(placement);
-                if (freePieces.Count == 0)
-                {
-                    solutions.Add(board.Placements.ToList<Placement>());
-                    Console.WriteLine(String.Format("Found solution #{0}!", solutions.Count));
-                }
-                else 
-                {
-                    if (!board.InvalidRegions()) SolveRecursively(level + 1);
-                }
+                if (FreePieces.Count == 0) AddSolution();
+                else if (!Board.InvalidRegions()) SolveRecursively(level + 1);
+                
                 UnPlayPiece(placement);
             }
         }
 
-        //public void SolveOld()
-        //{
-        //    ClearSolutions();
-        //    if (freePieces.Count == 0) return;
-        //    ResetPieces(); 
-        //    Piece piece = freePieces[0];
-        //    Placement[] placements = board.PossiblePlacementsFor(piece);
-        //    if (placements.Length == 0) return;
-        //    foreach (Placement placement in placements)
-        //    {
-        //        if (HasSolution(placement,1))
-        //        {
-        //            solutions.Add(new List<Placement>(board.Placements));
-        //            WriteSolution(board.Placements);
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine(String.Format("No solution for {0}", placement));
-        //        }
-        //        ResetPieces();
-        //    }
-        //}
+        private void AddSolution()
+        {
+            Solutions.Add(Board.Placements.ToList<Placement>());
+            ShowSuccess(Solutions.Count);
+        }
 
-        //public bool HasSolution(Placement placement, int level)
-        //{
-        //    // Play the piece, removing it from free pieces.
-        //    if (level <= 1) Console.WriteLine(String.Format("{0} {1}", level, placement));
-        //    PlayPiece(placement);
-        //    if (freePieces.Count == 0) return true;
-        //    if (board.InvalidRegions()) {
-        //        UnPlayPiece(placement);
-        //        return false;
-        //    }
-        //    Piece piece = freePieces[0];
-        //    Placement[] placements = board.PossiblePlacementsFor(piece);
+        private void ShowProgress(int level, Placement placement)
+        {
+            if (level == 1) Console.WriteLine(String.Format("{0}", placement)); 
+        }
 
-        //    // This is wrong! If there are multiple solutions within placements, we only get the first one!
-        //    foreach(var nextPlacement in placements)
-        //    {
-        //        if (HasSolution(nextPlacement, level + 1)) return true;
-        //    }
-        //    // Un-play the piece, adding it back to free pieces.
-        //    UnPlayPiece(placement);
-        //    return false;
-        //}
-
-
+        private void ShowSuccess(int solutionCount)
+        {
+            Console.WriteLine(String.Format("Found solution #{0}!", solutionCount));
+        }
 
         public void WriteSolution(List<Placement> placements)
         {
-            Console.WriteLine("Solution");
+            Console.WriteLine("\nSolution");
             foreach (Placement placement in placements)
             {
-                Console.WriteLine(placement.ToString());
+                Console.WriteLine(String.Format("{0}\n",placement));
             }
-            Console.WriteLine();
         }
     }
 }

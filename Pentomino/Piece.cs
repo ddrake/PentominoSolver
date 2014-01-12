@@ -96,11 +96,11 @@ namespace Pentomino
             }
             return bitmap;
         }
-        public void RemovePieceFromList(ref List<Piece> pieces)
+        public void RemovePieceFromList(List<Piece> pieces)
         {
             pieces.Remove(shape.Piece);
         }
-        public void AddPieceToList(ref List<Piece> pieces)
+        public void AddPieceToList(List<Piece> pieces)
         {
             pieces.Add(shape.Piece);
         }

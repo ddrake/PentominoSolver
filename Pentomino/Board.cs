@@ -24,7 +24,12 @@ namespace Pentomino
             Array.Clear(bitmap, 0, bitmap.Length);
             placements = new List<Placement>(12);
             emptyHashString = hashString = prevHashString = HashString();
-            tested = new Dictionary<string,Placement[]>(100000);
+            ResetCache();
+        }
+
+        public void ResetCache()
+        {
+            tested = new Dictionary<string, Placement[]>(100000);
         }
 
         public void Clear()

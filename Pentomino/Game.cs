@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Pentomino
 {
     public class Game
     {
-        private const int AllPieces = 12;
+        public const int PENTOMINO_SIZE = 5; 
+        public const int PIECE_COUNT = 12;
         public Board Board { get; private set; }
         private List<Piece> OriginalFreePieces { get; set; }
         private List<Placement> PresetPlacements { get; set; }
@@ -23,16 +25,6 @@ namespace Pentomino
             ClearSolutions();
         }
 
-        private void ClearSolutions()
-        {
-            this.Solutions = new List<List<Placement>>(100);
-        }
-
-        private void ResetFreePieces()
-        {
-            FreePieces = new List<Piece>(OriginalFreePieces);
-        }
-
         public void AddPiece(Piece piece)
         {
             FreePieces.Add(piece);
@@ -41,7 +33,12 @@ namespace Pentomino
 
         public void AddPresetPlacement(Placement placement)
         {
-            this.PresetPlacements.Add(placement);
+            PresetPlacements.Add(placement);
+        }
+
+        public void RemovePresetPlacement(Placement placement)
+        {
+            PresetPlacements.Remove(placement);
         }
 
         public void PlayPiece(Placement placement)
@@ -56,19 +53,13 @@ namespace Pentomino
             placement.AddPieceToList(FreePieces);
         }
 
-
         public void ResetPieces()
         {
             Board.Clear();
-            FreePieces = new List<Piece>(OriginalFreePieces);
+            ResetFreePieces();
             ReplayPresetPlacements();
         }
 
-        private void ReplayPresetPlacements()
-        {
-            foreach (Placement placement in PresetPlacements) PlayPiece(placement);
-        }
-        
         public void Solve()
         {
             ClearSolutions();
@@ -76,14 +67,15 @@ namespace Pentomino
             SolveRecursively(1);
         }
 
-        public void SolveRecursively(int level)
+
+        private void SolveRecursively(int level)
         {
             foreach (Placement placement in Board.PossiblePlacementsFor(FreePieces.First()))
             {
                 ShowProgress(level, placement);
                 PlayPiece(placement);
                 if (FreePieces.Count == 0) AddSolution();
-                else if (!Board.InvalidRegions()) SolveRecursively(level + 1);
+                else if (!Board.HasInvalidRegions()) SolveRecursively(level + 1);
                 
                 UnPlayPiece(placement);
             }
@@ -95,6 +87,16 @@ namespace Pentomino
             ShowSuccess(Solutions.Count);
         }
 
+        private void ClearSolutions() { Solutions = new List<List<Placement>>(100); }
+
+        private void ResetFreePieces() { FreePieces = new List<Piece>(OriginalFreePieces); }
+
+        private void ReplayPresetPlacements()
+        {
+            foreach (Placement placement in PresetPlacements) PlayPiece(placement);
+        }
+
+
         private void ShowProgress(int level, Placement placement)
         {
             if (level == 1) Console.WriteLine(String.Format("{0}", placement)); 
@@ -105,13 +107,14 @@ namespace Pentomino
             Console.WriteLine(String.Format("Found solution #{0}!", solutionCount));
         }
 
-        public void WriteSolution(List<Placement> placements)
+        public void WriteSolution(List<Placement> placements, TextWriter output)
         {
-            Console.WriteLine("\nSolution");
+            output.WriteLine("Solution");
             foreach (Placement placement in placements)
             {
-                Console.WriteLine(String.Format("{0}\n",placement));
+                output.WriteLine(placement);
             }
+            output.WriteLine();
         }
     }
 }

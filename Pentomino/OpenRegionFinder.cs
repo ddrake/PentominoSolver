@@ -9,41 +9,45 @@ namespace Pentomino
     {
         public OpenRegionFinder(bool[,] bitmap)
         {
-            this.open = new HashSet<Location>();
-            this.closed = new HashSet<Location>();
-            this.width = bitmap.GetLength(0);
-            this.height = bitmap.GetLength(1);
-            for (int i = 0; i < width; ++i)
-            {
-                for (int j = 0; j < height; ++j)
-                {
-                    if (bitmap[i, j]) closed.Add(new Location(i, j));
-                    else open.Add(new Location(i, j));
-                }
-            }
+            Open = new HashSet<Location>();
+            Closed = new HashSet<Location>();
+            Width = bitmap.GetLength(0);
+            Height = bitmap.GetLength(1);
+            DivideIntoOpenAndClosedLocations(bitmap);
         }
-        HashSet<Location> open;
-        HashSet<Location> closed;
-        int width;
-        int height;
 
         public List<List<Location>> FindRegions()
         {
             var results = new List<List<Location>>();
             var tested = new HashSet<Location>();
             var currentRegion = new HashSet<Location>();
-            foreach (var o in this.open)
+            foreach (var open in Open)
             {
-                if (!tested.Contains(o))
+                if (!tested.Contains(open))
                 {
-                    tested.Add(o);
-                    currentRegion.Add(o);
-                    CheckLocation(o, tested, currentRegion);
+                    AddLocationAndCheck(open, tested, currentRegion);
                     results.Add(currentRegion.ToList<Location>());
                     currentRegion = new HashSet<Location>();
                 }
             }
             return results;
+        }
+
+        private HashSet<Location> Open { get; set; }
+        private HashSet<Location> Closed { get; set; }
+        private int Width { get; set; }
+        private int Height { get; set; }
+
+        private void DivideIntoOpenAndClosedLocations(bool[,] bitmap)
+        {
+            for (int i = 0; i < Width; ++i)
+            {
+                for (int j = 0; j < Height; ++j)
+                {
+                    if (bitmap[i, j]) Closed.Add(new Location(i, j));
+                    else Open.Add(new Location(i, j));
+                }
+            }
         }
 
         private static HashSet<Location> Neighbors(Location loc, int width, int height)
@@ -59,17 +63,19 @@ namespace Pentomino
 
         private void CheckLocation(Location loc, HashSet<Location> tested, HashSet<Location> currentRegion)
         {
-            HashSet<Location> toCheck = Neighbors(loc, width, height);
-            toCheck.IntersectWith(this.open);
+            HashSet<Location> toCheck = Neighbors(loc, Width, Height);
+            toCheck.IntersectWith(Open);
             foreach(Location location in toCheck)
             {
-                if (!tested.Contains(location))
-                {
-                    tested.Add(location);
-                    currentRegion.Add(location);
-                    CheckLocation(location, tested, currentRegion);
-                }
+                if (!tested.Contains(location)) { AddLocationAndCheck(location, tested, currentRegion); }
             }
+        }
+
+        private void AddLocationAndCheck(Location location, HashSet<Location> tested, HashSet<Location> currentRegion)
+        {
+            tested.Add(location);
+            currentRegion.Add(location);
+            CheckLocation(location, tested, currentRegion);
         }
     }
 }

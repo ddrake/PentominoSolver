@@ -13,7 +13,7 @@ namespace PentominoSolver
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Board(10,6));
+            Game game = new Game(new Board(20,3));
 
             game.AddPiece(new Squirrel());
             game.AddPiece(new Bird());
@@ -29,36 +29,24 @@ namespace PentominoSolver
             game.AddPiece(new Rabbit());
 
             List<Placement> presets = new List<Placement>();
-//            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 1, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 2, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 3, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 4, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 5, 0));
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 6, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 1, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 2, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 3, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 4, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 5, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 6, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 7, 1));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 1, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 2, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 3, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 4, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 5, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 6, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 7, 2));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 1, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 2, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 3, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 4, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 5, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 6, 3));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 7, 3));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 7, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 8, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 9, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 10, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 11, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 12, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 13, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 14, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 15, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 16, 0));
+            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 17, 0));
             SolveWithPresetPlacements(game, presets);
         }
 

@@ -13,7 +13,7 @@ namespace PentominoSolver
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Board(20,3));
+            Game game = new Game(new Board(10, 6));
 
             game.AddPiece(new Squirrel());
             game.AddPiece(new Bird());
@@ -28,40 +28,27 @@ namespace PentominoSolver
             game.AddPiece(new Worm());
             game.AddPiece(new Rabbit());
 
-            List<Placement> presets = new List<Placement>();
+            var presetGroups = new List<List<Placement>>();
+            var presets = new List<Placement>();
             presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 1, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 2, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 3, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 4, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 5, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 6, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 7, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 8, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 9, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 10, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 11, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 12, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 13, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 14, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 15, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 16, 0));
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 17, 0));
-            SolveWithPresetPlacements(game, presets);
+            presets.Add(new Placement(Worm.Orientation.Horizontal, 1, 0));
+            presets.Add(new Placement(Bird.Orientation.UpsideDownFacingLeft, 0, 2));
+            presetGroups.Add(presets);
+            SolveWithPresetPlacements(game, presetGroups);
         }
 
-        private static void SolveWithPresetPlacements(Game game, List<Placement> presets)
+        private static void SolveWithPresetPlacements(Game game, List<List<Placement>> presetGroups)
         {
             int totalSolutions = 0;
-            foreach (Placement preset in presets)
+            foreach (List<Placement> presetGroup in presetGroups)
             {
-                game.AddPresetPlacement(preset);
+                foreach (Placement preset in presetGroup) game.AddPresetPlacement(preset);
                 game.Solve();
                 totalSolutions += game.Solutions.Count;
                 LogResults(game);
                 Console.WriteLine("*********************************");
                 game.Board.ResetCache();
-                game.RemovePresetPlacement(preset);
+                foreach (Placement preset in presetGroup) game.RemovePresetPlacement(preset);
             }
             Console.WriteLine(String.Format("Total solutions found: {0}", totalSolutions));
             Console.ReadKey();

@@ -9,7 +9,7 @@ public class GameTests
     [Fact]
     public void GameShouldInitiallyHaveAnEmptyListOfSolutions()
     {
-        Board board = new Board(4, 3);
+        Board board = new Board(5, 3);
         Game game = new Game(board);
 
         Assert.Equal(0, game.Solutions.Count);
@@ -18,7 +18,7 @@ public class GameTests
     [Fact]
     public void GameShouldBeAbleToResetItsPieces()
     {
-        Board board = new Board(4, 3);
+        Board board = new Board(5, 3);
         Game game = new Game(board);
         Piece moose = new Moose();
         game.AddPiece(moose);
@@ -72,7 +72,7 @@ public class GameTests
     [Fact]
     public void GamePiecesShouldBeStored()
     {
-        Board board = new Board(4, 3);
+        Board board = new Board(5, 3);
         Game game = new Game(board);
 
         game.AddPiece(new Moose());
@@ -86,7 +86,7 @@ public class GameTests
     [Fact]
     public void GameShouldBeAbleToPlaceAShapeOnAnEmptyBoard()
     {
-        Board board = new Board(4, 3);
+        Board board = new Board(5, 3);
         Game game = new Game(board);
         Piece moose = new Moose();
         game.AddPiece(moose);
@@ -95,4 +95,46 @@ public class GameTests
         Assert.Equal(0, game.FreePieces.Count);
         Assert.Equal(placement, game.Board.Placements[0]);
     }
+
+    [Fact]
+    public void GameShouldSolveNonRectangularPuzzles()
+    {
+        var spaces = new HashSet<Pt> {
+            new Pt(0,0), new Pt(0,1), new Pt(0,2), new Pt(1,0), new Pt(1,1), new Pt(1,2), new Pt(1,3),
+            new Pt(2,0), new Pt(2,1), new Pt(2,2), new Pt(2,3), new Pt(3,0), new Pt(3,1), new Pt(3,2), new Pt(3,3),
+            new Pt(4,0), new Pt(4,1), new Pt(4,2), new Pt(5,0), new Pt(5,1)
+        };
+        Board board = new Board(spaces);
+        Game game = new Game(board);
+        game.AddPiece(new Owl());
+        game.AddPiece(new Crab());
+        game.AddPiece(new Snail());
+        game.AddPiece(new Moose());
+        game.Solve();
+        Assert.Equal(1, game.Solutions.Count);
+    }
+    [Fact]
+    public void SolveShouldThrowExceptionIffNotEnoughFreePiecesAreProvided()
+    {
+        Board board = new Board(3, 5);
+        Game game = new Game(board);
+        game.AddPiece(new Owl());
+        Assert.Throws<ArgumentException>(() => game.Solve());
+    }
+
+    [Fact]
+    public void SolveShouldHandleExtraPieces()
+    {
+        Board board = new Board(5, 3);
+        Game game = new Game(board);
+        game.AddPiece(new Ram());
+        game.AddPiece(new Crab());
+        game.AddPiece(new Moose());
+        game.AddPiece(new Snail());
+        game.AddPiece(new Fish());
+        game.AddPiece(new Rabbit());
+        game.Solve();
+        Assert.True(game.Solutions.Count == 12);
+    }
+
 }

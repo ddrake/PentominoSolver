@@ -9,12 +9,12 @@ namespace Pentomino
     public class Game
     {
         public const int PENTOMINO_SIZE = 5; 
-        public const int PIECE_COUNT = 12;
         public Board Board { get; private set; }
         private List<Piece> OriginalFreePieces { get; set; }
         private List<Placement> PresetPlacements { get; set; }
         public List<Piece> FreePieces { get; private set; }
         public List<List<Placement>> Solutions { get; private set; }
+        private List<HashSet<Piece>> FreePieceSubsets { get; set; }
 
         public Game(Board board)
         {
@@ -63,10 +63,42 @@ namespace Pentomino
         public void Solve()
         {
             ClearSolutions();
-            ResetPieces(); 
-            SolveRecursively(1);
+            ResetPieces();
+            List<List<Piece>> subsets = GenerateSubsets();
+            foreach (var subset in subsets)
+            {
+                FreePieces = subset;
+                SolveRecursively(1);
+            }
         }
 
+        private List<List<Piece>> GenerateSubsets()
+        {
+            if (FreePieces.Count < PieceCount)
+                throw new ArgumentException("Not enough free pieces to fill the board");
+            else
+                return GenerateSubsetsRecursively(new List<Piece>(FreePieces), PieceCount,0);
+        }
+
+        private List<List<Piece>> GenerateSubsetsRecursively(List<Piece> pieces, int size, int skip)
+        {
+            if (pieces.Count < size) throw new ArgumentException("Can't generate n-element subsets from an set with fewer than n elements");
+            if (pieces.Count == size) return new List<List<Piece>>() { new List<Piece>(pieces) };
+            else
+            {
+                List<List<Piece>> subsets = new List<List<Piece>>();
+                for (int i = skip; i < pieces.Count; ++i )
+                {
+                    Piece piece = pieces[i];
+                    var newPieces = new List<Piece>(pieces);
+                    newPieces.Remove(piece);
+                    subsets.AddRange(GenerateSubsetsRecursively(newPieces, size, i));
+                }
+                return subsets;
+            }
+        }
+
+        private int PieceCount { get { return Board.Size / PENTOMINO_SIZE; } }
 
         private void SolveRecursively(int level)
         {

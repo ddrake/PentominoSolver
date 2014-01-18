@@ -48,4 +48,17 @@ public class BoardTests
         board.Clear();
         Assert.Equal(0, board.Placements.Count);
     }
+
+    [Fact]
+    public void RectangularBoardShouldRaiseExceptionIffSizeIsWrong()
+    {
+        Assert.Throws<ArgumentException>(() => new Board(3, 4));
+        Assert.DoesNotThrow(() => new Board(3, 5));
+    }
+    [Fact]
+    public void NonRectangularBoardShouldRaiseExceptionIffSizeIsWrong()
+    {
+        Assert.Throws<ArgumentException>(() => new Board(new HashSet<Pt>(){new Pt(1,1), new Pt(1,2)}));
+        Assert.DoesNotThrow(() => new Board(new HashSet<Pt>() { new Pt(1, 1), new Pt(1, 2), new Pt(0,1), new Pt(1,0), new Pt(2,1) }));
+    }
 }

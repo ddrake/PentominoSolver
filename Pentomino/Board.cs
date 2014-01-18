@@ -12,6 +12,7 @@ namespace Pentomino
 
         public Board(int width, int height)
         {
+            if (width * height % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
             Spaces = new HashSet<Pt>();
             for (int i = 0; i < width; ++i)
             {
@@ -20,6 +21,18 @@ namespace Pentomino
                     Spaces.Add(new Pt(i, j));
                 }
             }
+            Initialize();
+        }
+
+        public Board(HashSet<Pt> spaces)
+        {
+            if (spaces.Count % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
+            Spaces = spaces;
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             Closed = new HashSet<Pt>();
             Open = new HashSet<Pt>(Spaces);
             Placements = new List<Placement>();
@@ -50,6 +63,8 @@ namespace Pentomino
             placement.UpdateBitmap(Open, Closed, false);
         }
 
+        public int Size { get { return Spaces.Count; } }
+     
         public Placement[] PossiblePlacementsFor(Piece piece)
         {
             Placement[] result;

@@ -13,7 +13,7 @@ namespace PentominoSolver
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Board(10, 6));
+            Game game = new Game(new Board(5,3));
 
             game.AddPiece(new Squirrel());
             game.AddPiece(new Bird());
@@ -29,11 +29,11 @@ namespace PentominoSolver
             game.AddPiece(new Rabbit());
 
             var presetGroups = new List<List<Placement>>();
-            var presets = new List<Placement>();
-            presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
-            presets.Add(new Placement(Worm.Orientation.Horizontal, 1, 0));
-            presets.Add(new Placement(Bird.Orientation.UpsideDownFacingLeft, 0, 2));
-            presetGroups.Add(presets);
+            //var presets = new List<Placement>();
+            //presets.Add(new Placement(Bat.Orientation.HeadTopLeft, 0, 0));
+            //presets.Add(new Placement(Worm.Orientation.Horizontal, 1, 0));
+            //presets.Add(new Placement(Bird.Orientation.UpsideDownFacingLeft, 0, 2));
+            //presetGroups.Add(presets);
             SolveWithPresetPlacements(game, presetGroups);
         }
 
@@ -41,18 +41,28 @@ namespace PentominoSolver
         {
             int totalSolutions = 0;
             DateTime start = DateTime.Now;
-            foreach (List<Placement> presetGroup in presetGroups)
+            if (presetGroups.Count > 0)
             {
-                foreach (Placement preset in presetGroup) game.AddPresetPlacement(preset);
-                game.Solve();
-                totalSolutions += game.Solutions.Count;
-                LogResults(game);
-                Console.WriteLine("*********************************");
-                game.Board.ResetCache();
-                foreach (Placement preset in presetGroup) game.RemovePresetPlacement(preset);
+                foreach (List<Placement> presetGroup in presetGroups)
+                {
+                    foreach (Placement preset in presetGroup) game.AddPresetPlacement(preset);
+                    totalSolutions += SolveAndDisplay(game, totalSolutions);
+                    foreach (Placement preset in presetGroup) game.RemovePresetPlacement(preset);
+                }
+
             }
+            else totalSolutions = SolveAndDisplay(game, totalSolutions);
             Console.WriteLine(String.Format("Found all {0} solutions in {1} seconds.", totalSolutions, DateTime.Now.Subtract(start).TotalSeconds));
             Console.ReadKey();
+        }
+
+        private static int SolveAndDisplay(Game game, int totalSolutions)
+        {
+            game.Solve();
+            LogResults(game);
+            Console.WriteLine("*********************************");
+            game.Board.ResetCache();
+            return game.Solutions.Count;
         }
 
         private static void LogResults(Game game)

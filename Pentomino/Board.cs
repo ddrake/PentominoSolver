@@ -68,13 +68,7 @@ namespace Pentomino
 
         public bool HasInvalidRegions()
         {
-            var finder = new OpenRegionFinder(Open, Bitmap);
-            List<List<Location>> regions = finder.FindRegions();
-            foreach (var region in regions)
-            {
-                if (region.Count % 5 != 0) return true;
-            }
-            return false;
+            return new OpenRegionFinder(Open, Bitmap).HasInvalidRegions();
         }
 
 

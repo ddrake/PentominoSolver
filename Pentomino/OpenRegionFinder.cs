@@ -30,6 +30,22 @@ namespace Pentomino
             return results;
         }
 
+        public bool HasInvalidRegions()
+        {
+            var tested = new HashSet<Location>();
+            var currentRegion = new HashSet<Location>();
+            foreach (var open in Open)
+            {
+                if (!tested.Contains(open))
+                {
+                    AddLocationAndCheck(open, tested, currentRegion);
+                    if (currentRegion.Count % Game.PENTOMINO_SIZE != 0) return true;
+                    currentRegion = new HashSet<Location>();
+                }
+            }
+            return false;
+        }
+
         private HashSet<Location> Open { get; set; }
         private HashSet<Location> Closed { get; set; }
 

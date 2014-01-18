@@ -48,5 +48,34 @@ public class OpenRegionFinderTests
         Assert.Equal(5, connectedRegions.Last().Count);
     }
 
+    [Fact]
+    void ShouldBeAbleToDetectAnInvalidRegion()
+    {
+        var open = new HashSet<Location> {
+            new Location(0,0), new Location(0,1), new Location(0,2), new Location(1,1), new Location(1,2), new Location(2,2)
+        };
+        var bitmap = new HashSet<Location> {
+            new Location(0,3), new Location(1,0), new Location(1,3), new Location(2,0), new Location(2,1), new Location(2,3),
+            new Location(3,0), new Location(3,1), new Location(3,2), new Location(3,3)
+        };
+        var ca = new OpenRegionFinder(open, bitmap);
+        Assert.True(ca.HasInvalidRegions());
+    }
+
+    [Fact]
+    void ShouldNotHaveInvalidRegionsWhenThereIsAnOwlShapedHole()
+    {
+        var open = new HashSet<Location> {
+            new Location(1,1), new Location(2,0), new Location(2,1), new Location(2,2), new Location(3,1)
+        };
+        var bitmap = new HashSet<Location> {
+            new Location(0,0), new Location(0,1), new Location(0,2), new Location(1,0), new Location(1,2), new Location(1,3),
+            new Location(2,3), new Location(3,0), new Location(3,2), new Location(3,3), new Location(4,0), new Location(4,1),
+            new Location(4,2), new Location(5,0), new Location(5,1)
+        };
+        var ca = new OpenRegionFinder(open, bitmap);
+        Assert.False(ca.HasInvalidRegions());
+    }
+
 }
 

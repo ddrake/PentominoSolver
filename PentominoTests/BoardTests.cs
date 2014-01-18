@@ -200,25 +200,25 @@ public class PieceTests
     [Fact]
     public void BitmapCanBeFlippedHorizontally()
     {
-        var bitmap = new HashSet<Location>()  { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var closed = new HashSet<Location>()  { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
         var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 1), new Location(1, 2), new Location(1, 3) };
-        var result = Shape.FlipBitmapHorizontally(bitmap);
+        var result = Shape.FlipBitmapHorizontally(closed);
         Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeFlippedVertically()
     {
-        var bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
         var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(0, 2), new Location(1, 2), new Location(1, 3) };
-        var result =  Shape.FlipBitmapVertically(bitmap);
+        var result =  Shape.FlipBitmapVertically(closed);
         Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeRotatedClockwise()
     {
-        var bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
         var rotated = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
-        var result = Shape.RotateBitmapClockwise(bitmap);
+        var result = Shape.RotateBitmapClockwise(closed);
         Assert.True(rotated.IsSubsetOf(result) && result.IsSubsetOf(rotated));
     }
 }

@@ -26,21 +26,21 @@ namespace Pentomino
             return String.Format("{0} at {1}", this.shape, this.location);
         }
 
-        public void UpdateBitmap(HashSet<Location> open, HashSet<Location> bitmap, bool isAdding)
+        public void UpdateBitmap(HashSet<Location> open, HashSet<Location> closed, bool isAdding)
         {
-            HashSet<Location> pieceMap = shape.Bitmap;
+            HashSet<Location> pieceMap = shape.Closed;
             foreach (Location loc in pieceMap)
             {
                 var newLoc = new Location(loc.x + location.x, loc.y + location.y);
                 if (isAdding) 
                 {
                     open.Remove(newLoc);
-                    bitmap.Add(newLoc);  
+                    closed.Add(newLoc);  
                 }
                 else
                 {
                     open.Add(newLoc);
-                    bitmap.Remove(newLoc);
+                    closed.Remove(newLoc);
                 }
             }
         }

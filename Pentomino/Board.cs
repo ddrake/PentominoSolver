@@ -20,7 +20,7 @@ namespace Pentomino
                     Spaces.Add(new Location(i, j));
                 }
             }
-            Bitmap = new HashSet<Location>();
+            Closed = new HashSet<Location>();
             Open = new HashSet<Location>(Spaces);
             Placements = new List<Placement>();
             ResetCache();
@@ -33,7 +33,7 @@ namespace Pentomino
 
         public void Clear()
         {
-            Bitmap = new HashSet<Location>();
+            Closed = new HashSet<Location>();
             Open = new HashSet<Location>(Spaces);
             Placements = new List<Placement>();
         }
@@ -41,13 +41,13 @@ namespace Pentomino
         public void Add(Placement placement)
         {
             Placements.Add(placement);
-            placement.UpdateBitmap(Open, Bitmap, true);
+            placement.UpdateBitmap(Open, Closed, true);
         }
 
         public void Remove(Placement placement)
         {
             Placements.Remove(placement);
-            placement.UpdateBitmap(Open, Bitmap, false);
+            placement.UpdateBitmap(Open, Closed, false);
         }
 
         public Placement[] PossiblePlacementsFor(Piece piece)
@@ -68,13 +68,13 @@ namespace Pentomino
 
         public bool HasInvalidRegions()
         {
-            return new OpenRegionFinder(Open, Bitmap).HasInvalidRegions();
+            return new OpenRegionFinder(Open, Closed).HasInvalidRegions();
         }
 
 
         private HashSet<Location> Spaces { get; set; }
         private HashSet<Location> Open { get; set; }
-        private HashSet<Location> Bitmap { get; set; }
+        private HashSet<Location> Closed { get; set; }
         private Dictionary<BoardPiece, Placement[]> Tested { get; set; }
 
         private void AddPossiblePlacementsFor(Shape shape, HashSet<Placement> placements)
@@ -90,7 +90,7 @@ namespace Pentomino
 
         private bool CanFit(Shape shape, Location start)
         {
-            foreach (Location pt in shape.Bitmap)
+            foreach (Location pt in shape.Closed)
             {
                 var offsetPt = new Location(pt.x + start.x, pt.y + start.y);
                 if (!Open.Contains(offsetPt)) return false;
@@ -101,7 +101,7 @@ namespace Pentomino
         public override int GetHashCode()
         {
             int hashcode = 0;
-            foreach (Location loc in Bitmap)
+            foreach (Location loc in Closed)
             {
                 hashcode ^= loc.GetHashCode();
             }

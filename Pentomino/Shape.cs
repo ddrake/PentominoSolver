@@ -7,16 +7,16 @@ namespace Pentomino
 {
     public class Shape
     {
-        public Shape(Piece piece, string orientation, HashSet<Location> bitmap)
+        public Shape(Piece piece, string orientation, HashSet<Location> closed)
         {
             Piece = piece;
             Orientation = orientation;
-            Bitmap = bitmap;
+            Closed = closed;
         }
 
         public Piece Piece { get; private set; } 
         public string Orientation { get; private set; } 
-        public HashSet<Location> Bitmap { get; private set; } 
+        public HashSet<Location> Closed { get; private set; } 
         public override bool Equals(object obj)
         {
             Shape shape = (Shape)obj;

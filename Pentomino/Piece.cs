@@ -24,31 +24,31 @@ namespace Pentomino
             Name = "Moose";
             Id = 1;
             Shapes = new Shape[8];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(3, 0) };
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(3, 0) };
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down, facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down, facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down, facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down, facing left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[3].Bitmap);
-            Shapes[4] = new Shape(this, "Head up, feet right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[3].Closed);
+            Shapes[4] = new Shape(this, "Head up, feet right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[4].Bitmap);
-            Shapes[5] = new Shape(this, "Head up, feet left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[4].Closed);
+            Shapes[5] = new Shape(this, "Head up, feet left", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[5].Bitmap);
-            Shapes[6] = new Shape(this, "Head down, feet left", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[5].Closed);
+            Shapes[6] = new Shape(this, "Head down, feet left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[6].Bitmap);
-            Shapes[7] = new Shape(this, "Head down, feet right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[6].Closed);
+            Shapes[7] = new Shape(this, "Head down, feet right", closed);
         }
         public enum Orientation
         {
@@ -74,32 +74,32 @@ namespace Pentomino
             Name = "Bird";
             Id = 2;
             Shapes = new Shape[8];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(2, 1) };
+            closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(2, 1) };
 
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down, facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down, facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down, facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down, facing left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[3].Bitmap);
-            Shapes[4] = new Shape(this, "Head up, feet right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[3].Closed);
+            Shapes[4] = new Shape(this, "Head up, feet right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[4].Bitmap);
-            Shapes[5] = new Shape(this, "Head up, feet left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[4].Closed);
+            Shapes[5] = new Shape(this, "Head up, feet left", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[5].Bitmap);
-            Shapes[6] = new Shape(this, "Head down, feet left", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[5].Closed);
+            Shapes[6] = new Shape(this, "Head down, feet left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[6].Bitmap);
-            Shapes[7] = new Shape(this, "Head down, feet right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[6].Closed);
+            Shapes[7] = new Shape(this, "Head down, feet right", closed);
         }
         public enum Orientation
         {
@@ -125,31 +125,31 @@ namespace Pentomino
             Name = "Snail";
             Id = 3;
             Shapes = new Shape[8];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(2, 1) };
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(2, 1) };
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down, facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down, facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down, facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down, facing left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[3].Bitmap);
-            Shapes[4] = new Shape(this, "Head up, belly right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[3].Closed);
+            Shapes[4] = new Shape(this, "Head up, belly right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[4].Bitmap);
-            Shapes[5] = new Shape(this, "Head up, belly left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[4].Closed);
+            Shapes[5] = new Shape(this, "Head up, belly left", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[5].Bitmap);
-            Shapes[6] = new Shape(this, "Head down, belly left", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[5].Closed);
+            Shapes[6] = new Shape(this, "Head down, belly left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[6].Bitmap);
-            Shapes[7] = new Shape(this, "Head down, belly right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[6].Closed);
+            Shapes[7] = new Shape(this, "Head down, belly right", closed);
         }
         public enum Orientation
         {
@@ -175,32 +175,32 @@ namespace Pentomino
             Name = "Rabbit";
             Id = 4;
             Shapes = new Shape[8];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(3, 0) };
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(3, 0) };
 
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down, facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down, facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down, facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down, facing left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[3].Bitmap);
-            Shapes[4] = new Shape(this, "Head up, belly right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[3].Closed);
+            Shapes[4] = new Shape(this, "Head up, belly right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[4].Bitmap);
-            Shapes[5] = new Shape(this, "Head up, belly left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[4].Closed);
+            Shapes[5] = new Shape(this, "Head up, belly left", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[5].Bitmap);
-            Shapes[6] = new Shape(this, "Head down, belly left", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[5].Closed);
+            Shapes[6] = new Shape(this, "Head down, belly left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[6].Bitmap);
-            Shapes[7] = new Shape(this, "Head down, belly right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[6].Closed);
+            Shapes[7] = new Shape(this, "Head down, belly right", closed);
         }
         public enum Orientation
         {
@@ -226,31 +226,31 @@ namespace Pentomino
             Name = "Fish";
             Id = 5;
             Shapes = new Shape[8];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down, facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down, facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down, facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down, facing left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[3].Bitmap);
-            Shapes[4] = new Shape(this, "Head up, fin right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[3].Closed);
+            Shapes[4] = new Shape(this, "Head up, fin right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[4].Bitmap);
-            Shapes[5] = new Shape(this, "Head up, fin left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[4].Closed);
+            Shapes[5] = new Shape(this, "Head up, fin left", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[5].Bitmap);
-            Shapes[6] = new Shape(this, "Head down, fin left", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[5].Closed);
+            Shapes[6] = new Shape(this, "Head down, fin left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[6].Bitmap);
-            Shapes[7] = new Shape(this, "Head down, fin right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[6].Closed);
+            Shapes[7] = new Shape(this, "Head down, fin right", closed);
         }
         public enum Orientation
         {
@@ -276,19 +276,19 @@ namespace Pentomino
             Name = "Whale";
             Id = 6;
             Shapes = new Shape[4];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Head down, tail right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Head down, tail right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Head down, tail left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Head down, tail left", closed);
         }
         public enum Orientation
         {
@@ -310,19 +310,19 @@ namespace Pentomino
             Name = "Ram";
             Id = 7;
             Shapes = new Shape[4];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
-            Shapes[0] = new Shape(this, "Upright", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
+            Shapes[0] = new Shape(this, "Upright", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Upside-down", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Upside-down", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Head left", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Head left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Head right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Head right", closed);
         }
         public enum Orientation
         {
@@ -344,19 +344,19 @@ namespace Pentomino
             Name = "Crab";
             Id = 8;
             Shapes = new Shape[4];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(2, 1) };
-            Shapes[0] = new Shape(this, "Claws up", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(2, 1) };
+            Shapes[0] = new Shape(this, "Claws up", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Claws down", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Claws down", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Claws left", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Claws left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Claws right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Claws right", closed);
         }
         public enum Orientation
         {
@@ -378,19 +378,19 @@ namespace Pentomino
             Name = "Squirrel";
             Id = 9;
             Shapes = new Shape[4];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(2, 1), new Location(2, 2) };
-            Shapes[0] = new Shape(this, "Facing left", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(2, 1), new Location(2, 2) };
+            Shapes[0] = new Shape(this, "Facing left", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Facing right", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Facing right", closed);
 
-            bitmap = Shape.FlipBitmapVertically(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Upside-down facing right", bitmap);
+            closed = Shape.FlipBitmapVertically(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Upside-down facing right", closed);
 
-            bitmap = Shape.FlipBitmapHorizontally(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Upside-down facing left", bitmap);
+            closed = Shape.FlipBitmapHorizontally(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Upside-down facing left", closed);
         }
         public enum Orientation
         {
@@ -412,19 +412,19 @@ namespace Pentomino
             Name = "Bat";
             Id = 10;
             Shapes = new Shape[4];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 2), new Location(1, 1), new Location(1, 2), new Location(2,0), new Location(2, 1) };
-            Shapes[0] = new Shape(this, "Head top right", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 2), new Location(1, 1), new Location(1, 2), new Location(2,0), new Location(2, 1) };
+            Shapes[0] = new Shape(this, "Head top right", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "Head bottom right", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "Head bottom right", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[1].Bitmap);
-            Shapes[2] = new Shape(this, "Head bottom left", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[1].Closed);
+            Shapes[2] = new Shape(this, "Head bottom left", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[2].Bitmap);
-            Shapes[3] = new Shape(this, "Head top left", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[2].Closed);
+            Shapes[3] = new Shape(this, "Head top left", closed);
         }
         public enum Orientation
         {
@@ -446,13 +446,13 @@ namespace Pentomino
             Name = "Worm";
             Id = 11;
             Shapes = new Shape[2];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0), new Location(4, 0) };
-            Shapes[0] = new Shape(this, "horizontal", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0), new Location(4, 0) };
+            Shapes[0] = new Shape(this, "horizontal", closed);
 
-            bitmap = Shape.RotateBitmapClockwise(Shapes[0].Bitmap);
-            Shapes[1] = new Shape(this, "vertical", bitmap);
+            closed = Shape.RotateBitmapClockwise(Shapes[0].Closed);
+            Shapes[1] = new Shape(this, "vertical", closed);
 
         }
         public enum Orientation
@@ -473,10 +473,10 @@ namespace Pentomino
             Name = "Owl";
             Id = 12;
             Shapes = new Shape[1];
-            HashSet<Location> bitmap;
+            HashSet<Location> closed;
 
-            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 1) };
-            Shapes[0] = new Shape(this, "", bitmap);
+            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 1) };
+            Shapes[0] = new Shape(this, "", closed);
         }
         public enum Orientation
         {

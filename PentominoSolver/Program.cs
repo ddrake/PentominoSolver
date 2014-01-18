@@ -40,6 +40,7 @@ namespace PentominoSolver
         private static void SolveWithPresetPlacements(Game game, List<List<Placement>> presetGroups)
         {
             int totalSolutions = 0;
+            DateTime start = DateTime.Now;
             foreach (List<Placement> presetGroup in presetGroups)
             {
                 foreach (Placement preset in presetGroup) game.AddPresetPlacement(preset);
@@ -50,7 +51,7 @@ namespace PentominoSolver
                 game.Board.ResetCache();
                 foreach (Placement preset in presetGroup) game.RemovePresetPlacement(preset);
             }
-            Console.WriteLine(String.Format("Total solutions found: {0}", totalSolutions));
+            Console.WriteLine(String.Format("Found all {0} solutions in {1} seconds.", totalSolutions, DateTime.Now.Subtract(start).TotalSeconds));
             Console.ReadKey();
         }
 

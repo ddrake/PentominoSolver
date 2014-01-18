@@ -24,9 +24,9 @@ namespace Pentomino
             Name = "Moose";
             Id = 1;
             Shapes = new Shape[8];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(3, 0) };
+            closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(1, 0), new Pt(1, 1), new Pt(2, 0), new Pt(3, 0) };
             Shapes[0] = new Shape(this, "Facing left", closed);
 
             closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
@@ -74,9 +74,9 @@ namespace Pentomino
             Name = "Bird";
             Id = 2;
             Shapes = new Shape[8];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(2, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(0, 2), new Pt(1, 0), new Pt(1, 1), new Pt(2, 1) };
 
             Shapes[0] = new Shape(this, "Facing left", closed);
 
@@ -125,9 +125,9 @@ namespace Pentomino
             Name = "Snail";
             Id = 3;
             Shapes = new Shape[8];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(2, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(1, 0), new Pt(1, 1), new Pt(2, 0), new Pt(2, 1) };
             Shapes[0] = new Shape(this, "Facing left", closed);
 
             closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
@@ -175,9 +175,9 @@ namespace Pentomino
             Name = "Rabbit";
             Id = 4;
             Shapes = new Shape[8];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(3, 0) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(0, 1), new Pt(1, 0), new Pt(2, 0), new Pt(3, 0) };
 
             Shapes[0] = new Shape(this, "Facing left", closed);
 
@@ -226,9 +226,9 @@ namespace Pentomino
             Name = "Fish";
             Id = 5;
             Shapes = new Shape[8];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(1, 0), new Pt(1, 1), new Pt(2, 1), new Pt(3, 1) };
             Shapes[0] = new Shape(this, "Facing left", closed);
 
             closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
@@ -276,9 +276,9 @@ namespace Pentomino
             Name = "Whale";
             Id = 6;
             Shapes = new Shape[4];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(1, 0), new Pt(1, 1), new Pt(1, 2), new Pt(2, 2) };
             Shapes[0] = new Shape(this, "Facing left", closed);
 
             closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
@@ -310,9 +310,9 @@ namespace Pentomino
             Name = "Ram";
             Id = 7;
             Shapes = new Shape[4];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
+            closed = new HashSet<Pt>() { new Pt(0, 2), new Pt(1, 0), new Pt(1, 1), new Pt(1, 2), new Pt(2, 2) };
             Shapes[0] = new Shape(this, "Upright", closed);
 
             closed = Shape.FlipBitmapVertically(Shapes[0].Closed);
@@ -344,9 +344,9 @@ namespace Pentomino
             Name = "Crab";
             Id = 8;
             Shapes = new Shape[4];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(2, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(0, 1), new Pt(1, 0), new Pt(2, 0), new Pt(2, 1) };
             Shapes[0] = new Shape(this, "Claws up", closed);
 
             closed = Shape.FlipBitmapVertically(Shapes[0].Closed);
@@ -378,9 +378,9 @@ namespace Pentomino
             Name = "Squirrel";
             Id = 9;
             Shapes = new Shape[4];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(2, 1), new Location(2, 2) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(1, 0), new Pt(2, 0), new Pt(2, 1), new Pt(2, 2) };
             Shapes[0] = new Shape(this, "Facing left", closed);
 
             closed = Shape.FlipBitmapHorizontally(Shapes[0].Closed);
@@ -412,9 +412,9 @@ namespace Pentomino
             Name = "Bat";
             Id = 10;
             Shapes = new Shape[4];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 2), new Location(1, 1), new Location(1, 2), new Location(2,0), new Location(2, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 2), new Pt(1, 1), new Pt(1, 2), new Pt(2,0), new Pt(2, 1) };
             Shapes[0] = new Shape(this, "Head top right", closed);
 
             closed = Shape.RotateBitmapClockwise(Shapes[0].Closed);
@@ -446,9 +446,9 @@ namespace Pentomino
             Name = "Worm";
             Id = 11;
             Shapes = new Shape[2];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0), new Location(4, 0) };
+            closed = new HashSet<Pt>() { new Pt(0, 0), new Pt(1, 0), new Pt(2, 0), new Pt(3, 0), new Pt(4, 0) };
             Shapes[0] = new Shape(this, "horizontal", closed);
 
             closed = Shape.RotateBitmapClockwise(Shapes[0].Closed);
@@ -473,9 +473,9 @@ namespace Pentomino
             Name = "Owl";
             Id = 12;
             Shapes = new Shape[1];
-            HashSet<Location> closed;
+            HashSet<Pt> closed;
 
-            closed = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 1) };
+            closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(1, 0), new Pt(1, 1), new Pt(1, 2), new Pt(2, 1) };
             Shapes[0] = new Shape(this, "", closed);
         }
         public enum Orientation

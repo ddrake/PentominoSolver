@@ -125,7 +125,7 @@ public class BoardTests
     {
         Board board = new Board(10, 6);
         Moose moose = new Moose();
-        Placement placement = new Placement(moose.Shapes[0], new Location(0, 0));
+        Placement placement = new Placement(moose.Shapes[0], new Pt(0, 0));
         board.Add(placement);
         Assert.Contains<Placement>(placement, board.Placements);
     }
@@ -135,7 +135,7 @@ public class BoardTests
     {
         Board board = new Board(10, 6);
         Moose moose = new Moose();
-        Placement placement = new Placement(moose.Shapes[0], new Location(0, 0));
+        Placement placement = new Placement(moose.Shapes[0], new Pt(0, 0));
         board.Add(placement);
         board.Clear();
         Assert.Equal(0, board.Placements.Count);
@@ -151,21 +151,21 @@ public class PlacementTests
     [Fact]
     public void PlacementCanUpdateBoardsBitmap()
     {
-        var open = new HashSet<Location> {   
-            new Location(0, 0), new Location(0, 1), new Location(0,2),
-            new Location(1, 0), new Location(1, 1), new Location(1,2),
-            new Location(2, 0), new Location(2, 1), new Location(2,2),
-            new Location(3, 0), new Location(3, 1), new Location(3,2)
+        var open = new HashSet<Pt> {   
+            new Pt(0, 0), new Pt(0, 1), new Pt(0,2),
+            new Pt(1, 0), new Pt(1, 1), new Pt(1,2),
+            new Pt(2, 0), new Pt(2, 1), new Pt(2,2),
+            new Pt(3, 0), new Pt(3, 1), new Pt(3,2)
         };
-        var closed = new HashSet<Location>();
+        var closed = new HashSet<Pt>();
         Moose moose = new Moose();
-        Placement placement = new Placement(moose.Shapes[0], new Location(0, 0));
-        var expectedClosed = new HashSet<Location> {
-            new Location(0, 1), new Location(1, 0), new Location(1,1), new Location(2, 0), new Location(3, 0)
+        Placement placement = new Placement(moose.Shapes[0], new Pt(0, 0));
+        var expectedClosed = new HashSet<Pt> {
+            new Pt(0, 1), new Pt(1, 0), new Pt(1,1), new Pt(2, 0), new Pt(3, 0)
         };
-        var expectedOpen = new HashSet<Location> {
-            new Location(0, 0), new Location(0,2), new Location(1,2), new Location(2, 1), new Location(2,2),
-            new Location(3,1), new Location(3,2)
+        var expectedOpen = new HashSet<Pt> {
+            new Pt(0, 0), new Pt(0,2), new Pt(1,2), new Pt(2, 1), new Pt(2,2),
+            new Pt(3,1), new Pt(3,2)
         };
         placement.UpdateBitmap(open, closed, true);
         Assert.Equal(expectedClosed, closed);
@@ -200,24 +200,24 @@ public class PieceTests
     [Fact]
     public void BitmapCanBeFlippedHorizontally()
     {
-        var closed = new HashSet<Location>()  { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
-        var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 1), new Location(1, 2), new Location(1, 3) };
+        var closed = new HashSet<Pt>()  { new Pt(0, 1), new Pt(0, 2), new Pt(0, 3), new Pt(1, 0), new Pt(1, 1) };
+        var flipped = new HashSet<Pt>() { new Pt(0, 0), new Pt(0, 1), new Pt(1, 1), new Pt(1, 2), new Pt(1, 3) };
         var result = Shape.FlipBitmapHorizontally(closed);
         Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeFlippedVertically()
     {
-        var closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
-        var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(0, 2), new Location(1, 2), new Location(1, 3) };
+        var closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(0, 2), new Pt(0, 3), new Pt(1, 0), new Pt(1, 1) };
+        var flipped = new HashSet<Pt>() { new Pt(0, 0), new Pt(0, 1), new Pt(0, 2), new Pt(1, 2), new Pt(1, 3) };
         var result =  Shape.FlipBitmapVertically(closed);
         Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeRotatedClockwise()
     {
-        var closed = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
-        var rotated = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
+        var closed = new HashSet<Pt>() { new Pt(0, 1), new Pt(0, 2), new Pt(0, 3), new Pt(1, 0), new Pt(1, 1) };
+        var rotated = new HashSet<Pt>() { new Pt(0, 0), new Pt(1, 0), new Pt(1, 1), new Pt(2, 1), new Pt(3, 1) };
         var result = Shape.RotateBitmapClockwise(closed);
         Assert.True(rotated.IsSubsetOf(result) && result.IsSubsetOf(rotated));
     }

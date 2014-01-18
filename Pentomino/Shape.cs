@@ -7,7 +7,7 @@ namespace Pentomino
 {
     public class Shape
     {
-        public Shape(Piece piece, string orientation, HashSet<Location> closed)
+        public Shape(Piece piece, string orientation, HashSet<Pt> closed)
         {
             Piece = piece;
             Orientation = orientation;
@@ -16,7 +16,7 @@ namespace Pentomino
 
         public Piece Piece { get; private set; } 
         public string Orientation { get; private set; } 
-        public HashSet<Location> Closed { get; private set; } 
+        public HashSet<Pt> Closed { get; private set; } 
         public override bool Equals(object obj)
         {
             Shape shape = (Shape)obj;
@@ -32,25 +32,25 @@ namespace Pentomino
             return String.Format("{0}, {1}", Piece, Orientation);
         }
 
-        public static HashSet<Location> FlipBitmapHorizontally(HashSet<Location> original)
+        public static HashSet<Pt> FlipBitmapHorizontally(HashSet<Pt> original)
         {
             int maxX = original.Max(loc => loc.x);
-            var results = original.Select<Location, Location>(loc => new Location(maxX - loc.x, loc.y));
-            return new HashSet<Location>(results);
+            var results = original.Select<Pt, Pt>(loc => new Pt(maxX - loc.x, loc.y));
+            return new HashSet<Pt>(results);
         }
 
-        public static HashSet<Location> FlipBitmapVertically(HashSet<Location> original)
+        public static HashSet<Pt> FlipBitmapVertically(HashSet<Pt> original)
         {
             int maxY = original.Max(loc => loc.y);
-            var results = original.Select<Location, Location>(loc => new Location(loc.x, maxY - loc.y));
-            return new HashSet<Location>(results);
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.x, maxY - loc.y));
+            return new HashSet<Pt>(results);
         }
 
-        public static HashSet<Location> RotateBitmapClockwise(HashSet<Location> original)
+        public static HashSet<Pt> RotateBitmapClockwise(HashSet<Pt> original)
         {
             int maxX = original.Max(loc => loc.x);
-            var results = original.Select<Location, Location>(loc => new Location(loc.y, maxX - loc.x));
-            return new HashSet<Location>(results);
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.y, maxX - loc.x));
+            return new HashSet<Pt>(results);
         }
     }
 }

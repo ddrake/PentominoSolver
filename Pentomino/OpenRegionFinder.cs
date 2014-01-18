@@ -7,24 +7,24 @@ namespace Pentomino
 {
     public class OpenRegionFinder
     {
-        public OpenRegionFinder(HashSet<Location> open, HashSet<Location> closed)
+        public OpenRegionFinder(HashSet<Pt> open, HashSet<Pt> closed)
         {
             Open = open;
             Closed = closed;
         }
 
-        public List<List<Location>> FindRegions()
+        public List<List<Pt>> FindRegions()
         {
-            var results = new List<List<Location>>();
-            var tested = new HashSet<Location>();
-            var currentRegion = new HashSet<Location>();
+            var results = new List<List<Pt>>();
+            var tested = new HashSet<Pt>();
+            var currentRegion = new HashSet<Pt>();
             foreach (var open in Open)
             {
                 if (!tested.Contains(open))
                 {
                     AddLocationAndCheck(open, tested, currentRegion);
-                    results.Add(currentRegion.ToList<Location>());
-                    currentRegion = new HashSet<Location>();
+                    results.Add(currentRegion.ToList<Pt>());
+                    currentRegion = new HashSet<Pt>();
                 }
             }
             return results;
@@ -32,41 +32,41 @@ namespace Pentomino
 
         public bool HasInvalidRegions()
         {
-            var tested = new HashSet<Location>();
-            var currentRegion = new HashSet<Location>();
+            var tested = new HashSet<Pt>();
+            var currentRegion = new HashSet<Pt>();
             foreach (var open in Open)
             {
                 if (!tested.Contains(open))
                 {
                     AddLocationAndCheck(open, tested, currentRegion);
                     if (currentRegion.Count % Game.PENTOMINO_SIZE != 0) return true;
-                    currentRegion = new HashSet<Location>();
+                    currentRegion = new HashSet<Pt>();
                 }
             }
             return false;
         }
 
-        private HashSet<Location> Open { get; set; }
-        private HashSet<Location> Closed { get; set; }
+        private HashSet<Pt> Open { get; set; }
+        private HashSet<Pt> Closed { get; set; }
 
-        private static HashSet<Location> Neighbors(Location loc)
+        private static HashSet<Pt> Neighbors(Pt loc)
         {
-            return new HashSet<Location>() { 
-                new Location(loc.x - 1, loc.y), new Location(loc.x + 1, loc.y),
-                new Location(loc.x, loc.y-1), new Location(loc.x, loc.y+1) };
+            return new HashSet<Pt>() { 
+                new Pt(loc.x - 1, loc.y), new Pt(loc.x + 1, loc.y),
+                new Pt(loc.x, loc.y-1), new Pt(loc.x, loc.y+1) };
         }
 
-        private void CheckLocation(Location loc, HashSet<Location> tested, HashSet<Location> currentRegion)
+        private void CheckLocation(Pt loc, HashSet<Pt> tested, HashSet<Pt> currentRegion)
         {
-            HashSet<Location> toCheck = Neighbors(loc);
+            HashSet<Pt> toCheck = Neighbors(loc);
             toCheck.IntersectWith(Open);
-            foreach(Location location in toCheck)
+            foreach(Pt location in toCheck)
             {
                 if (!tested.Contains(location)) { AddLocationAndCheck(location, tested, currentRegion); }
             }
         }
 
-        private void AddLocationAndCheck(Location location, HashSet<Location> tested, HashSet<Location> currentRegion)
+        private void AddLocationAndCheck(Pt location, HashSet<Pt> tested, HashSet<Pt> currentRegion)
         {
             tested.Add(location);
             currentRegion.Add(location);

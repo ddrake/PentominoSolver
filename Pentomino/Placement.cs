@@ -8,9 +8,9 @@ namespace Pentomino
     public class Placement
     {
         private Shape shape;
-        private Location location;
+        private Pt location;
 
-        public Placement(Shape shape, Location location)
+        public Placement(Shape shape, Pt location)
         {
             this.shape = shape;
             this.location = location;
@@ -18,7 +18,7 @@ namespace Pentomino
         public Placement(Enum orientation, int x, int y)
         {
             this.shape = GetShape(orientation);
-            this.location = new Location(x, y);
+            this.location = new Pt(x, y);
         }
 
         public override string ToString()
@@ -26,12 +26,12 @@ namespace Pentomino
             return String.Format("{0} at {1}", this.shape, this.location);
         }
 
-        public void UpdateBitmap(HashSet<Location> open, HashSet<Location> closed, bool isAdding)
+        public void UpdateBitmap(HashSet<Pt> open, HashSet<Pt> closed, bool isAdding)
         {
-            HashSet<Location> pieceMap = shape.Closed;
-            foreach (Location loc in pieceMap)
+            HashSet<Pt> pieceMap = shape.Closed;
+            foreach (Pt loc in pieceMap)
             {
-                var newLoc = new Location(loc.x + location.x, loc.y + location.y);
+                var newLoc = new Pt(loc.x + location.x, loc.y + location.y);
                 if (isAdding) 
                 {
                     open.Remove(newLoc);

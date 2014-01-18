@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Pentomino
 {
-    public struct Location
+    public struct Pt
     {
         public int x, y;
-        public Location(int x, int y)
+        public Pt(int x, int y)
         {
             this.x = x;
             this.y = y;

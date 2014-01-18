@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="BoardPiece.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="OpenRegionFinder.cs" />
     <Compile Include="Game.cs" />

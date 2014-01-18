@@ -7,13 +7,10 @@ namespace Pentomino
 {
     public class OpenRegionFinder
     {
-        public OpenRegionFinder(bool[,] bitmap)
+        public OpenRegionFinder(HashSet<Location> open, HashSet<Location> closed)
         {
-            Open = new HashSet<Location>();
-            Closed = new HashSet<Location>();
-            Width = bitmap.GetLength(0);
-            Height = bitmap.GetLength(1);
-            DivideIntoOpenAndClosedLocations(bitmap);
+            Open = open;
+            Closed = closed;
         }
 
         public List<List<Location>> FindRegions()
@@ -35,35 +32,17 @@ namespace Pentomino
 
         private HashSet<Location> Open { get; set; }
         private HashSet<Location> Closed { get; set; }
-        private int Width { get; set; }
-        private int Height { get; set; }
 
-        private void DivideIntoOpenAndClosedLocations(bool[,] bitmap)
+        private static HashSet<Location> Neighbors(Location loc)
         {
-            for (int i = 0; i < Width; ++i)
-            {
-                for (int j = 0; j < Height; ++j)
-                {
-                    if (bitmap[i, j]) Closed.Add(new Location(i, j));
-                    else Open.Add(new Location(i, j));
-                }
-            }
-        }
-
-        private static HashSet<Location> Neighbors(Location loc, int width, int height)
-        {
-            var neighbors = new HashSet<Location>();
-            if (loc.x > 0) neighbors.Add(new Location(loc.x - 1, loc.y));
-            if (loc.x < width - 1 ) neighbors.Add(new Location(loc.x + 1, loc.y));
-            if (loc.y > 0) neighbors.Add(new Location(loc.x, loc.y - 1));
-            if (loc.y < height - 1) neighbors.Add(new Location(loc.x, loc.y + 1));
-
-            return neighbors;
+            return new HashSet<Location>() { 
+                new Location(loc.x - 1, loc.y), new Location(loc.x + 1, loc.y),
+                new Location(loc.x, loc.y-1), new Location(loc.x, loc.y+1) };
         }
 
         private void CheckLocation(Location loc, HashSet<Location> tested, HashSet<Location> currentRegion)
         {
-            HashSet<Location> toCheck = Neighbors(loc, Width, Height);
+            HashSet<Location> toCheck = Neighbors(loc);
             toCheck.IntersectWith(Open);
             foreach(Location location in toCheck)
             {

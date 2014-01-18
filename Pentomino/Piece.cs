@@ -24,9 +24,9 @@ namespace Pentomino
             Name = "Moose";
             Id = 1;
             Shapes = new Shape[8];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, true }, { true, true }, { true, false }, { true, false } };
+            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(3, 0) };
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -74,9 +74,10 @@ namespace Pentomino
             Name = "Bird";
             Id = 2;
             Shapes = new Shape[8];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, true, true }, { true, true, false }, { false, true, false } };
+            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(2, 1) };
+
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -124,9 +125,9 @@ namespace Pentomino
             Name = "Snail";
             Id = 3;
             Shapes = new Shape[8];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true, false }, { true, true }, { true, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 0), new Location(2, 1) };
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -174,9 +175,10 @@ namespace Pentomino
             Name = "Rabbit";
             Id = 4;
             Shapes = new Shape[8];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true, true }, { true, false }, { true, false }, { true, false } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(3, 0) };
+
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -224,9 +226,9 @@ namespace Pentomino
             Name = "Fish";
             Id = 5;
             Shapes = new Shape[8];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, true }, { true, true }, { false, true }, { false, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -274,9 +276,9 @@ namespace Pentomino
             Name = "Whale";
             Id = 6;
             Shapes = new Shape[4];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true, false, false }, { true, true, true }, { false, false, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -308,9 +310,9 @@ namespace Pentomino
             Name = "Ram";
             Id = 7;
             Shapes = new Shape[4];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, false, true }, { true, true, true }, { false, false, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 2), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 2) };
             Shapes[0] = new Shape(this, "Upright", bitmap);
 
             bitmap = Shape.FlipBitmapVertically(Shapes[0].Bitmap);
@@ -342,9 +344,9 @@ namespace Pentomino
             Name = "Crab";
             Id = 8;
             Shapes = new Shape[4];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true, true }, { true, false }, { true, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 0), new Location(2, 0), new Location(2, 1) };
             Shapes[0] = new Shape(this, "Claws up", bitmap);
 
             bitmap = Shape.FlipBitmapVertically(Shapes[0].Bitmap);
@@ -376,9 +378,9 @@ namespace Pentomino
             Name = "Squirrel";
             Id = 9;
             Shapes = new Shape[4];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true, false, false }, { true, false, false }, { true, true, true } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(2, 1), new Location(2, 2) };
             Shapes[0] = new Shape(this, "Facing left", bitmap);
 
             bitmap = Shape.FlipBitmapHorizontally(Shapes[0].Bitmap);
@@ -410,9 +412,9 @@ namespace Pentomino
             Name = "Bat";
             Id = 10;
             Shapes = new Shape[4];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, false, true }, { false, true, true }, { true, true, false } };
+            bitmap = new HashSet<Location>() { new Location(0, 2), new Location(1, 1), new Location(1, 2), new Location(2,0), new Location(2, 1) };
             Shapes[0] = new Shape(this, "Head top right", bitmap);
 
             bitmap = Shape.RotateBitmapClockwise(Shapes[0].Bitmap);
@@ -444,9 +446,9 @@ namespace Pentomino
             Name = "Worm";
             Id = 11;
             Shapes = new Shape[2];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { true }, { true }, { true }, { true }, { true } };
+            bitmap = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0), new Location(4, 0) };
             Shapes[0] = new Shape(this, "horizontal", bitmap);
 
             bitmap = Shape.RotateBitmapClockwise(Shapes[0].Bitmap);
@@ -471,9 +473,9 @@ namespace Pentomino
             Name = "Owl";
             Id = 12;
             Shapes = new Shape[1];
-            bool[,] bitmap;
+            HashSet<Location> bitmap;
 
-            bitmap = new bool[,] { { false, true, false }, { true, true, true }, { false, true, false }, };
+            bitmap = new HashSet<Location>() { new Location(0, 1), new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 1) };
             Shapes[0] = new Shape(this, "", bitmap);
         }
         public enum Orientation

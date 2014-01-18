@@ -49,8 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardTests.cs" />
+    <Compile Include="GameTests.cs" />
     <Compile Include="OpenRegionFinderTests.cs" />
+    <Compile Include="PieceTests.cs" />
+    <Compile Include="PlacementTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

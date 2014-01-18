@@ -12,60 +12,63 @@ namespace Pentomino
 
         public Board(int width, int height)
         {
-            Width = width;
-            Height = height;
-            Bitmap = new bool[width, height];
-            Placements = new List<Placement>(Game.PIECE_COUNT);
-            EmptyHashString = HashString = PrevHashString = GetHashString();
+            Spaces = new HashSet<Location>();
+            for (int i = 0; i < width; ++i)
+            {
+                for (int j = 0; j < height; ++j )
+                {
+                    Spaces.Add(new Location(i, j));
+                }
+            }
+            Bitmap = new HashSet<Location>();
+            Open = new HashSet<Location>(Spaces);
+            Placements = new List<Placement>();
             ResetCache();
         }
 
         public void ResetCache()
         {
-            Tested = new Dictionary<string, Placement[]>(100000);
+            Tested = new Dictionary<BoardPiece, Placement[]>(100000);
         }
 
         public void Clear()
         {
-            Array.Clear(Bitmap, 0, Bitmap.Length);
-            Placements = new List<Placement>(Game.PIECE_COUNT);
-            HashString = String.Copy(EmptyHashString);
+            Bitmap = new HashSet<Location>();
+            Open = new HashSet<Location>(Spaces);
+            Placements = new List<Placement>();
         }
 
         public void Add(Placement placement)
         {
             Placements.Add(placement);
-            Bitmap = placement.UpdateBitmap(Bitmap, true);
-            PrevHashString = String.Copy(HashString);
-            HashString = GetHashString();
+            placement.UpdateBitmap(Open, Bitmap, true);
         }
 
         public void Remove(Placement placement)
         {
             Placements.Remove(placement);
-            Bitmap = placement.UpdateBitmap(Bitmap, false);
-            HashString = String.Copy(PrevHashString);
+            placement.UpdateBitmap(Open, Bitmap, false);
         }
 
         public Placement[] PossiblePlacementsFor(Piece piece)
         {
             Placement[] result;
-            string key = piece.Name + HashString;
-            if (Tested.TryGetValue(key, out result))
+            BoardPiece bp = new BoardPiece(this, piece);
+            if (Tested.TryGetValue(bp, out result))
                 return result;
-            List<Placement> placements = new List<Placement>(50);
+            HashSet<Placement> placements = new HashSet<Placement>();
             foreach (Shape shape in piece.Shapes)
             {
                 AddPossiblePlacementsFor(shape, placements);
             }
             result = placements.ToArray<Placement>();
-            Tested.Add(key, result);
+            Tested.Add(bp, result);
             return result;
         }
 
         public bool HasInvalidRegions()
         {
-            var finder = new OpenRegionFinder(Bitmap);
+            var finder = new OpenRegionFinder(Open, Bitmap);
             List<List<Location>> regions = finder.FindRegions();
             foreach (var region in regions)
             {
@@ -75,60 +78,41 @@ namespace Pentomino
         }
 
 
-        private int Width { get; set; }
-        private int Height { get; set; }
-        private bool[,] Bitmap { get; set; }
-        private string HashString { get; set; }
-        private string PrevHashString { get; set; }
-        private string EmptyHashString { get; set; }
-        private Dictionary<string, Placement[]> Tested { get; set; }
+        private HashSet<Location> Spaces { get; set; }
+        private HashSet<Location> Open { get; set; }
+        private HashSet<Location> Bitmap { get; set; }
+        private Dictionary<BoardPiece, Placement[]> Tested { get; set; }
 
-        private void AddPossiblePlacementsFor(Shape shape, List<Placement> placements)
+        private void AddPossiblePlacementsFor(Shape shape, HashSet<Placement> placements)
         {
-            int maxWidth = Width - shape.Bitmap.GetLength(0) + 1;
-            int maxHeight = Height - shape.Bitmap.GetLength(1) + 1;
-            for (int x = 0; x < maxWidth; ++x)
+            foreach (Location start in Spaces)
             {
-                for (int y = 0; y < maxHeight; ++y)
+                if (CanFit(shape, start))
                 {
-                    Location location = new Location(x, y);
-
-                    if (CanFit(shape, location))
-                    {
-                        placements.Add(new Placement(shape, location));
-                    }
+                    placements.Add(new Placement(shape, start));
                 }
             }
-        }
+         }
 
-        private bool CanFit(Shape shape, Location location)
+        private bool CanFit(Shape shape, Location start)
         {
-            int offsetX, offsetY;
-            int boundX = shape.Bitmap.GetLength(0); 
-            int boundY = shape.Bitmap.GetLength(1);
-            for (int x = 0; x < boundX; ++x) 
+            foreach (Location pt in shape.Bitmap)
             {
-                for (int y = 0; y < boundY; ++y)
-                {
-                    offsetX = location.x + x;
-                    offsetY = location.y + y;
-                    if (shape.Bitmap[x, y] && Bitmap[offsetX, offsetY])
-                    {
-                        return false;
-                    }
-                }
+                var offsetPt = new Location(pt.x + start.x, pt.y + start.y);
+                if (!Open.Contains(offsetPt)) return false;
             }
             return true;
         }
 
-        private string GetHashString()
+        public override int GetHashCode()
         {
-            StringBuilder sb = new StringBuilder(60);
-            foreach (bool x in Bitmap) sb.Append(x ? "1" : "0");
-            return Convert.ToInt64(sb.ToString(),2).ToString("X");
+            int hashcode = 0;
+            foreach (Location loc in Bitmap)
+            {
+                hashcode ^= loc.GetHashCode();
+            }
+            return hashcode;
         }
-
-        private int Capacity() { return Width * Height / Game.PENTOMINO_SIZE; }
     }
 
 }

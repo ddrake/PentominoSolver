@@ -7,7 +7,7 @@ namespace Pentomino
 {
     public class Shape
     {
-        public Shape(Piece piece, string orientation, bool[,] bitmap)
+        public Shape(Piece piece, string orientation, HashSet<Location> bitmap)
         {
             Piece = piece;
             Orientation = orientation;
@@ -16,7 +16,7 @@ namespace Pentomino
 
         public Piece Piece { get; private set; } 
         public string Orientation { get; private set; } 
-        public bool[,] Bitmap { get; private set; } 
+        public HashSet<Location> Bitmap { get; private set; } 
         public override bool Equals(object obj)
         {
             Shape shape = (Shape)obj;
@@ -32,52 +32,25 @@ namespace Pentomino
             return String.Format("{0}, {1}", Piece, Orientation);
         }
 
-        public static bool[,] FlipBitmapHorizontally(bool[,] original)
+        public static HashSet<Location> FlipBitmapHorizontally(HashSet<Location> original)
         {
-            int width = original.GetLength(0);
-            int height = original.GetLength(1);
-            int x, y;
-            bool[,] flipped = new bool[width, height];
-            for (y = 0; y < height; ++y)
-            {
-                for (x = 0; x < width; ++x)
-                {
-                    flipped[x, y] = original[width - 1 - x, y];
-                }
-            }
-            return flipped;
+            int maxX = original.Max(loc => loc.x);
+            var results = original.Select<Location, Location>(loc => new Location(maxX - loc.x, loc.y));
+            return new HashSet<Location>(results);
         }
 
-        public static bool[,] FlipBitmapVertically(bool[,] original)
+        public static HashSet<Location> FlipBitmapVertically(HashSet<Location> original)
         {
-            int width = original.GetLength(0);
-            int height = original.GetLength(1);
-            int x, y;
-            bool[,] flipped = new bool[width, height];
-            for (x = 0; x < width; ++x)
-            {
-                for (y = 0; y < height; ++y)
-                {
-                    flipped[x, y] = original[x, height - 1 - y];
-                }
-            }
-            return flipped;
+            int maxY = original.Max(loc => loc.y);
+            var results = original.Select<Location, Location>(loc => new Location(loc.x, maxY - loc.y));
+            return new HashSet<Location>(results);
         }
 
-        public static bool[,] RotateBitmapClockwise(bool[,] original)
+        public static HashSet<Location> RotateBitmapClockwise(HashSet<Location> original)
         {
-            int width = original.GetLength(0);
-            int height = original.GetLength(1);
-            int x, y;
-            bool[,] rotated = new bool[height, width];
-            for (x = 0; x < height; ++x)
-            {
-                for (y = 0; y < width; ++y)
-                {
-                    rotated[x, y] = original[width - 1 - y, x];
-                }
-            }
-            return rotated;
+            int maxX = original.Max(loc => loc.x);
+            var results = original.Select<Location, Location>(loc => new Location(loc.y, maxX - loc.x));
+            return new HashSet<Location>(results);
         }
     }
 }

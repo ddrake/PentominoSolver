@@ -70,7 +70,8 @@ namespace Pentomino
 
         private void SolveRecursively(int level)
         {
-            foreach (Placement placement in Board.PossiblePlacementsFor(FreePieces.First()))
+            var possibles = Board.PossiblePlacementsFor(FreePieces.First());
+            foreach (Placement placement in possibles)
             {
                 ShowProgress(level, placement);
                 PlayPiece(placement);

@@ -151,12 +151,24 @@ public class PlacementTests
     [Fact]
     public void PlacementCanUpdateBoardsBitmap()
     {
-        bool[,] boardMap = new bool[4, 3];
-        Array.Clear(boardMap, 0, boardMap.Length);
+        var open = new HashSet<Location> {   
+            new Location(0, 0), new Location(0, 1), new Location(0,2),
+            new Location(1, 0), new Location(1, 1), new Location(1,2),
+            new Location(2, 0), new Location(2, 1), new Location(2,2),
+            new Location(3, 0), new Location(3, 1), new Location(3,2)
+        };
+        var closed = new HashSet<Location>();
         Moose moose = new Moose();
         Placement placement = new Placement(moose.Shapes[0], new Location(0, 0));
-        bool[,] expected = new bool[,] { { false, true, false }, { true, true, false }, { true, false, false }, { true, false, false } };
-        Assert.Equal(expected, placement.UpdateBitmap(boardMap, true));
+        var expectedClosed = new HashSet<Location> {
+            new Location(0, 1), new Location(1, 0), new Location(1,1), new Location(2, 0), new Location(3, 0)
+        };
+        var expectedOpen = new HashSet<Location> {
+            new Location(0, 0), new Location(0,2), new Location(1,2), new Location(2, 1), new Location(2,2),
+            new Location(3,1), new Location(3,2)
+        };
+        placement.UpdateBitmap(open, closed, true);
+        Assert.Equal(expectedClosed, closed);
     }
 }
 
@@ -188,23 +200,26 @@ public class PieceTests
     [Fact]
     public void BitmapCanBeFlippedHorizontally()
     {
-        bool[,] bitmap = new bool[,] { { false, true, true, true }, { true, true, false, false } };
-        bool[,] flipped = new bool[,] { { true, true, false, false }, { false, true, true, true } };
-        Assert.Equal(flipped, Shape.FlipBitmapHorizontally(bitmap));
+        var bitmap = new HashSet<Location>()  { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(1, 1), new Location(1, 2), new Location(1, 3) };
+        var result = Shape.FlipBitmapHorizontally(bitmap);
+        Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeFlippedVertically()
     {
-        bool[,] bitmap = new bool[,] { { false, true, true, true }, { true, true, false, false } };
-        bool[,] flipped = new bool[,] { { true, true, true, false }, { false, false, true, true } };
-        Assert.Equal(flipped, Shape.FlipBitmapVertically(bitmap));
+        var bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var flipped = new HashSet<Location>() { new Location(0, 0), new Location(0, 1), new Location(0, 2), new Location(1, 2), new Location(1, 3) };
+        var result =  Shape.FlipBitmapVertically(bitmap);
+        Assert.True(flipped.IsSubsetOf(result) && result.IsSubsetOf(flipped));
     }
     [Fact]
     public void BitmapCanBeRotatedClockwise()
     {
-        bool[,] bitmap = new bool[,] { { false, true, true, true }, { true, true, false, false } };
-        bool[,] rotated = new bool[,] { {true, false }, { true, true }, { false, true }, { false, true } };
-        Assert.Equal(rotated, Shape.RotateBitmapClockwise(bitmap));
+        var bitmap = new HashSet<Location>() { new Location(0, 1), new Location(0, 2), new Location(0, 3), new Location(1, 0), new Location(1, 1) };
+        var rotated = new HashSet<Location>() { new Location(0, 0), new Location(1, 0), new Location(1, 1), new Location(2, 1), new Location(3, 1) };
+        var result = Shape.RotateBitmapClockwise(bitmap);
+        Assert.True(rotated.IsSubsetOf(result) && result.IsSubsetOf(rotated));
     }
 }
 

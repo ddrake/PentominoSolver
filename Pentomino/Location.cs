@@ -17,5 +17,9 @@ namespace Pentomino
         {
             return String.Format("({0},{1})", x, y);
         }
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode();
+        }
     }
 }

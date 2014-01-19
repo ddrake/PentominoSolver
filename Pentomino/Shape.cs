@@ -35,21 +35,37 @@ namespace Pentomino
         public static HashSet<Pt> FlipBitmapHorizontally(HashSet<Pt> original)
         {
             int maxX = original.Max(loc => loc.x);
-            var results = original.Select<Pt, Pt>(loc => new Pt(maxX - loc.x, loc.y));
+            int maxZ = original.Max(loc => loc.z);
+            var results = original.Select<Pt, Pt>(loc => new Pt(maxX - loc.x, loc.y, maxZ - loc.z));
             return new HashSet<Pt>(results);
         }
 
         public static HashSet<Pt> FlipBitmapVertically(HashSet<Pt> original)
         {
             int maxY = original.Max(loc => loc.y);
-            var results = original.Select<Pt, Pt>(loc => new Pt(loc.x, maxY - loc.y));
+            int maxZ = original.Max(loc => loc.z);
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.x, maxY - loc.y, maxZ - loc.z));
             return new HashSet<Pt>(results);
         }
 
         public static HashSet<Pt> RotateBitmapClockwise(HashSet<Pt> original)
         {
             int maxX = original.Max(loc => loc.x);
-            var results = original.Select<Pt, Pt>(loc => new Pt(loc.y, maxX - loc.x));
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.y, maxX - loc.x, loc.z));
+            return new HashSet<Pt>(results);
+        }
+
+        public static HashSet<Pt> RotateBitmapToward(HashSet<Pt> original)
+        {
+            int maxZ = original.Max(loc => loc.z);
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.x, maxZ - loc.z, loc.y));
+            return new HashSet<Pt>(results);
+        }
+
+        public static HashSet<Pt> RotateBitmapAway(HashSet<Pt> original)
+        {
+            int maxY = original.Max(loc => loc.y);
+            var results = original.Select<Pt, Pt>(loc => new Pt(loc.x, loc.z, maxY - loc.y));
             return new HashSet<Pt>(results);
         }
     }

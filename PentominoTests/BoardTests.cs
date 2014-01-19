@@ -25,7 +25,7 @@ public class BoardTests
         Board board = new Board(10, 6);
         Moose moose = new Moose();
         Placement[] placements = board.PossiblePlacementsFor(moose);
-        Assert.Equal<string>("Moose, Facing left at (0,0)", placements[0].ToString());
+        Assert.Equal<string>("Moose, Feet South, facing West at (0,0,0)", placements[0].ToString());
     }
 
     [Fact]

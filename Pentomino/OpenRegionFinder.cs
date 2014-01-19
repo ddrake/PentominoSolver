@@ -52,8 +52,10 @@ namespace Pentomino
         private static HashSet<Pt> Neighbors(Pt loc)
         {
             return new HashSet<Pt>() { 
-                new Pt(loc.x - 1, loc.y), new Pt(loc.x + 1, loc.y),
-                new Pt(loc.x, loc.y-1), new Pt(loc.x, loc.y+1) };
+                new Pt(loc.x - 1, loc.y, loc.z), new Pt(loc.x + 1, loc.y, loc.z),
+                new Pt(loc.x, loc.y - 1, loc.z), new Pt(loc.x, loc.y + 1, loc.z),
+                new Pt(loc.x, loc.y, loc.z - 1), new Pt(loc.x, loc.y, loc.z + 1)
+            };
         }
 
         private void CheckLocation(Pt loc, HashSet<Pt> tested, HashSet<Pt> currentRegion)

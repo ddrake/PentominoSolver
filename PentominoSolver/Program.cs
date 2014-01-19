@@ -13,7 +13,7 @@ namespace PentominoSolver
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Board(5,3));
+            Game game = new Game(new Board(5,3,2));
 
             game.AddPiece(new Squirrel());
             game.AddPiece(new Bird());

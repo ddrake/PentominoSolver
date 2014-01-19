@@ -137,4 +137,70 @@ public class GameTests
         Assert.True(game.Solutions.Count == 12);
     }
 
+    [Fact]
+    public void Solves3dPuzzleWithSnailAndCrab()
+    {
+        var spaces = new HashSet<Pt>() {
+            new Pt(0,0), new Pt(0,1), new Pt(0,2), new Pt(1,1), new Pt(2,1),
+            new Pt(0,0,1), new Pt(0,1,1), new Pt(0,2,1), new Pt(1,1,1), new Pt(2,1,1)
+        };
+        Board board = new Board(spaces);
+        Game game = new Game(board);
+        game.AddPiece(new Snail());
+        game.AddPiece(new Crab());
+        game.Solve();
+        Assert.True(game.Solutions.Count == 2);
+    }
+
+    [Fact]
+    public void Solves3dPuzzleWithOwlFishRabbitAndWorm()
+    {
+        var spaces = new HashSet<Pt>() {
+            new Pt(0,0),   new Pt(0,1),   new Pt(1,0),   new Pt(1,1),   new Pt(2,0),   new Pt(2,1), new Pt(3,0), new Pt(3,1), new Pt(4,1),
+            new Pt(0,0,1), new Pt(0,1,1), new Pt(1,0,1), new Pt(1,1,1), new Pt(2,0,1), new Pt(2,1,1),  new Pt(3,1,1),
+            new Pt(0,0,2), new Pt(1,0,2), new Pt(2,0,2), new Pt(1,0,3)
+        };
+        Board board = new Board(spaces);
+        Game game = new Game(board);
+        game.AddPiece(new Owl());
+        game.AddPiece(new Rabbit());
+        game.AddPiece(new Fish());
+        game.AddPiece(new Worm());
+        game.Solve();
+        Assert.True(game.Solutions.Count == 2);
+    }
+
+    [Fact]
+    public void Solves3dPuzzleWithBatBirdAndWhale()
+    {
+        var spaces = new HashSet<Pt>() {
+            new Pt(0,0),     new Pt(0,1),     new Pt(1,0),     new Pt(1,1), new Pt(1,2), new Pt(2,0), new Pt(2,1),
+            new Pt(0,0,1),   new Pt(0,1,1),   new Pt(1,0,1),   new Pt(1,1,1),                         new Pt(2,1,1),
+            new Pt(0,1,2), new Pt(1,0,2), new Pt(2,0,2)
+        };
+        Board board = new Board(spaces);
+        Game game = new Game(board);
+        game.AddPiece(new Bat());
+        game.AddPiece(new Bird());
+        game.AddPiece(new Whale());
+        game.Solve();
+        Assert.True(game.Solutions.Count == 1);
+    }
+
+    [Fact]
+    public void Solves3dPuzzleWithRamAndSquirrel()
+    {
+        var spaces = new HashSet<Pt>() {
+            new Pt(1,0),     new Pt(1,1),     new Pt(1,2),     
+            new Pt(0,1,1), new Pt(1,1,1), new Pt(1,2,1), new Pt(2,0,1), new Pt(2,1,1), new Pt(2,2,1),
+            new Pt(1,2,2)
+        };
+        Board board = new Board(spaces);
+        Game game = new Game(board);
+        game.AddPiece(new Squirrel());
+        game.AddPiece(new Ram());
+        game.Solve();
+        Assert.True(game.Solutions.Count == 1);
+    }
+
 }

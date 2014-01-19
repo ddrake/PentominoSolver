@@ -10,7 +10,7 @@ public class PieceTests
     public void PieceShapesCanDisplayAsString()
     {
         Moose moose = new Moose();
-        Assert.Equal<string>("Moose, Facing left", moose.Shapes[0].ToString());
+        Assert.Equal<string>("Moose, Feet South, facing West", moose.Shapes[0].ToString());
     }
 
     [Fact]

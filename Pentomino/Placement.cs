@@ -15,10 +15,10 @@ namespace Pentomino
             this.shape = shape;
             this.location = location;
         }
-        public Placement(Enum orientation, int x, int y)
+        public Placement(Enum orientation, int x, int y, int z = 0)
         {
             this.shape = GetShape(orientation);
-            this.location = new Pt(x, y);
+            this.location = new Pt(x, y, z);
         }
 
         public override string ToString()
@@ -31,7 +31,7 @@ namespace Pentomino
             HashSet<Pt> pieceMap = shape.Closed;
             foreach (Pt loc in pieceMap)
             {
-                var newLoc = new Pt(loc.x + location.x, loc.y + location.y);
+                var newLoc = new Pt(loc.x + location.x, loc.y + location.y, loc.z + location.z);
                 if (isAdding) 
                 {
                     open.Remove(newLoc);

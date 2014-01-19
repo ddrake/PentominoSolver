@@ -10,15 +10,16 @@ namespace Pentomino
     {
         public List<Placement> Placements { get; private set; }
 
-        public Board(int width, int height)
+        public Board(int width, int depth, int height = 1)
         {
-            if (width * height % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
+            if (width * depth * height % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
             Spaces = new HashSet<Pt>();
-            for (int i = 0; i < width; ++i)
+            for (int x = 0; x < width; ++x)
             {
-                for (int j = 0; j < height; ++j )
+                for (int y = 0; y < depth; ++y )
                 {
-                    Spaces.Add(new Pt(i, j));
+                    for (int z = 0; z < height; ++z )
+                        Spaces.Add(new Pt(x, y, z));
                 }
             }
             Initialize();
@@ -33,10 +34,27 @@ namespace Pentomino
 
         private void Initialize()
         {
+            SetRectContainerSpaces();
             Closed = new HashSet<Pt>();
             Open = new HashSet<Pt>(Spaces);
             Placements = new List<Placement>();
             ResetCache();
+        }
+
+        private void SetRectContainerSpaces()
+        {
+            rectContainerSpaces = new HashSet<Pt>();
+            var minX = Spaces.Min<Pt>((pt) => pt.x);
+            var maxX = Spaces.Max<Pt>((pt) => pt.x);
+            var minY = Spaces.Min<Pt>((pt) => pt.y);
+            var maxY = Spaces.Max<Pt>((pt) => pt.y);
+            var minZ = Spaces.Min<Pt>((pt) => pt.z);
+            var maxZ = Spaces.Max<Pt>((pt) => pt.z);
+            for (int x = minX; x <= maxX; ++x)
+                for (int y = minY; y <= maxY; ++y)
+                    for (int z = minZ; z <= maxZ; ++z)
+                        rectContainerSpaces.Add(new Pt(x, y, z));
+
         }
 
         public void ResetCache()
@@ -86,15 +104,17 @@ namespace Pentomino
             return new OpenRegionFinder(Open, Closed).HasInvalidRegions();
         }
 
-
+        private HashSet<Pt> rectContainerSpaces;
         private HashSet<Pt> Spaces { get; set; }
+        private HashSet<Pt> RectContainerSpaces { get { return rectContainerSpaces; } }
+	
         private HashSet<Pt> Open { get; set; }
         private HashSet<Pt> Closed { get; set; }
         private Dictionary<BoardPiece, Placement[]> Tested { get; set; }
 
         private void AddPossiblePlacementsFor(Shape shape, HashSet<Placement> placements)
         {
-            foreach (Pt start in Spaces)
+            foreach (Pt start in RectContainerSpaces)
             {
                 if (CanFit(shape, start))
                 {
@@ -107,7 +127,7 @@ namespace Pentomino
         {
             foreach (Pt pt in shape.Closed)
             {
-                var offsetPt = new Pt(pt.x + start.x, pt.y + start.y);
+                var offsetPt = new Pt(pt.x + start.x, pt.y + start.y, pt.z + start.z);
                 if (!Open.Contains(offsetPt)) return false;
             }
             return true;

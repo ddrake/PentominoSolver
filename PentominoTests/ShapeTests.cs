@@ -9,7 +9,8 @@ public class ShapeTests
     [Fact]
     public void ShapeCanBeConstructedFromAnEnumeration()
     {
-        Shape mooseUpsideDown = new Moose().GetShape(Moose.Orientation.FacingLeft);
+        Shape moose = new Moose().GetShape(Moose.Orientation.FeetSouthFacingWest);
     }
+
 }
 

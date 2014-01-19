@@ -12,7 +12,6 @@ namespace Pentomino
 
         public Board(int width, int depth, int height = 1)
         {
-            if (width * depth * height % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
             Spaces = new HashSet<Pt>();
             for (int x = 0; x < width; ++x)
             {
@@ -27,7 +26,6 @@ namespace Pentomino
 
         public Board(HashSet<Pt> spaces)
         {
-            if (spaces.Count % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
             Spaces = spaces;
             Initialize();
         }
@@ -39,6 +37,22 @@ namespace Pentomino
             Open = new HashSet<Pt>(Spaces);
             Placements = new List<Placement>();
             ResetCache();
+        }
+
+        public void RemoveSpace(Pt point)
+        {
+            if (Placements.Count > 0) throw new InvalidOperationException("Spaces can't be removed after play has begun");
+            if (!Spaces.Contains(point)) throw new ArgumentException("Can't remove a space that is not in the board space");
+            Spaces.Remove(point);
+            Closed.Remove(point);
+        }
+
+        public void AddSpace(Pt point)
+        {
+            if (Placements.Count > 0) throw new InvalidOperationException("Spaces can't be added after play has begun");
+            if (Spaces.Contains(point)) throw new ArgumentException("Can't add a space that is already in the board space");
+            Spaces.Add(point);
+            Closed.Add(point);
         }
 
         private void SetRectContainerSpaces()

@@ -62,6 +62,7 @@ namespace Pentomino
 
         public void Solve()
         {
+            if (Board.Size % 5 != 0) throw new ArgumentException("Board size must be a multiple of 5");
             ClearSolutions();
             ResetPieces();
             List<List<Piece>> subsets = GenerateSubsets();

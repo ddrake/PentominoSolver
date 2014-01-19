@@ -13,7 +13,10 @@ namespace PentominoSolver
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Board(5,3,2));
+            Board board = new Board(3, 3, 3);
+            board.RemoveSpace(new Pt(1, 1, 1));
+            board.RemoveSpace(new Pt(1, 1, 2));
+            Game game = new Game(board);
 
             game.AddPiece(new Squirrel());
             game.AddPiece(new Bird());
@@ -22,11 +25,11 @@ namespace PentominoSolver
             game.AddPiece(new Crab());
             game.AddPiece(new Ram());
             game.AddPiece(new Snail());
-            game.AddPiece(new Moose());
+            //game.AddPiece(new Moose());
             game.AddPiece(new Whale());
-            game.AddPiece(new Fish());
-            game.AddPiece(new Worm());
-            game.AddPiece(new Rabbit());
+            //game.AddPiece(new Fish());
+            //game.AddPiece(new Worm());
+            //game.AddPiece(new Rabbit());
 
             var presetGroups = new List<List<Placement>>();
             //var presets = new List<Placement>();

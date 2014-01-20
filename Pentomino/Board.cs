@@ -30,6 +30,7 @@ namespace Pentomino
             Initialize();
         }
 
+
         private void Initialize()
         {
             SetRectContainerSpaces();
